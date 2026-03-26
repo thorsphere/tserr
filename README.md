@@ -1,24 +1,23 @@
 # tserr
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/thorstenrie/tserr)](https://goreportcard.com/report/github.com/thorstenrie/tserr)
-[![CodeFactor](https://www.codefactor.io/repository/github/thorstenrie/tserr/badge)](https://www.codefactor.io/repository/github/thorstenrie/tserr)
-![OSS Lifecycle](https://img.shields.io/osslifecycle/thorstenrie/tserr)
+[![Go Report Card](https://goreportcard.com/badge/github.com/thorsphere/tserr)](https://goreportcard.com/report/github.com/thorsphere/tserr)
+![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/tserr)
 
-[![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/thorstenrie/tserr)](https://pkg.go.dev/mod/github.com/thorstenrie/tserr)
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/thorstenrie/tserr)
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/thorstenrie/tserr)
+[![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/thorsphere/tserr)](https://pkg.go.dev/mod/github.com/thorsphere/tserr)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/thorsphere/tserr)
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/thorsphere/tserr)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/thorstenrie/tserr)
-![GitHub last commit](https://img.shields.io/github/last-commit/thorstenrie/tserr)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/thorstenrie/tserr)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thorstenrie/tserr)
-![GitHub Top Language](https://img.shields.io/github/languages/top/thorstenrie/tserr)
-![GitHub](https://img.shields.io/github/license/thorstenrie/tserr)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/thorsphere/tserr)
+![GitHub last commit](https://img.shields.io/github/last-commit/thorsphere/tserr)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/thorsphere/tserr)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thorsphere/tserr)
+![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/tserr)
+![GitHub](https://img.shields.io/github/license/thorsphere/tserr)
 
 The package tserr is a simple error interface in [Go](https://go.dev/). The interface provides standardized error messages of type `error` by function calls. Errors may contain verbs, which are provided by the function arguments.
 
 - **Simple**: Without configuration, just function calls
-- **Easy to parse**: All error messages in JSON format.
+- **Easy to parse**: All error messages in JSON format
 - **Tested**: Unit tests with high code coverage
 - **Dependencies**: Only depends on the [Go Standard Library](https://pkg.go.dev/std)
 
@@ -27,7 +26,7 @@ The package tserr is a simple error interface in [Go](https://go.dev/). The inte
 In the Go app, the package is imported with
 
 ```go
-import "github.com/thorstenrie/tserr"
+import "github.com/thorsphere/tserr"
 ```
 
 An error is called by a specific, corresponding function call, e.g., 
@@ -85,7 +84,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/thorstenrie/tserr"
+	"github.com/thorsphere/tserr"
 )
 
 func main() {
@@ -112,8 +111,8 @@ Output:
 
 ## Links
 
-[Godoc](https://pkg.go.dev/github.com/thorstenrie/tserr)
+[Godoc](https://pkg.go.dev/github.com/thorsphere/tserr)
 
-[Go Report Card](https://goreportcard.com/report/github.com/thorstenrie/tserr)
+[Go Report Card](https://goreportcard.com/report/github.com/thorsphere/tserr)
 
-[Open Source Insights](https://deps.dev/go/github.com%2Fthorstenrie%2Ftserr)
+[Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Ftserr)

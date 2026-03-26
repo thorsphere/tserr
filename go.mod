@@ -1,3 +1,3 @@
-module github.com/thorstenrie/tserr
+module github.com/thorsphere/tserr
 
-go 1.21
+go 1.26

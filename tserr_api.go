@@ -16,7 +16,7 @@
 //
 //	return errorf(&errmsgEqualStr, a.X, a.Y)
 //
-// Copyright (c) 2023 thorstenrie.
+// Copyright (c) 2023-2026 thorsphere.
 // All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
 // that can be found in the LICENSE file.
 package tserr
@@ -37,10 +37,16 @@ func Check(a *CheckArgs) error {
 	return errorf(&errmsgCheck, a.F, a.Err)
 }
 
-// NotExistent can be used if an required object does not exist, for example, a file.
-// F is the name of the object, for example, key name
+// NotExistent can be used if a required object does not exist, for example, a file.
+// F is the name of the object, for example, file name
 func NotExistent(F string) error {
 	return errorf(&errmsgNotExistent, F)
+}
+
+// AlreadyExistent can be used if a required object already exists, for example, a file, but is not expected to exist.
+// F is the name of the object, for example, file name
+func AlreadyExistent(F string) error {
+	return errorf(&errmsgAlreadyExistent, F)
 }
 
 // OpArgs holds the required arguments for the error function Op
@@ -67,22 +73,10 @@ func NilFailed(Op string) error {
 	return errorf(&errmsgNilFailed, Op)
 }
 
-// NotNil can be used if the function implementing an operation does not return nil, but nil is expected. A default use case are Test functions.
-// Op is the name of the operation
-func NotNil(Op string) error {
-	return errorf(&errmsgNotNil, Op)
-}
-
 // Empty can be used if a required object is empty but not allowed to be empty, for example, an input argument of type string.
 // F is the name of the empty object, for example, filename
 func Empty(F string) error {
 	return errorf(&errmsgEmpty, F)
-}
-
-// NotEmpty can be used if a required object is not empty but expected to be empty, for example, an output argument of type string.
-// F is the name of the object expected to be empty, for example, filename
-func NotEmpty(F string) error {
-	return errorf(&errmsgNotEmpty, F)
 }
 
 // EqualStrArgs holds the required arguments for the error function EqualStr

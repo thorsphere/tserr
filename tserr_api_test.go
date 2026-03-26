@@ -15,7 +15,7 @@ package tserr
 // The structure of all test functions follows the same pattern. For an example, please see
 // tests for Check: TestCheck, TestCheckNil, TestCheckNilErr
 //
-// Copyright (c) 2023 thorstenrie.
+// Copyright (c) 2023-2026 thorsphere.
 // All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
 // that can be found in the LICENSE file.
 
@@ -27,15 +27,15 @@ import (
 
 // testcases for types string and error
 var (
-	strFoo   string  = "tserr_foo"        // testcase type string
-	errFoo   error   = fmt.Errorf(strFoo) // testcase type error
-	intFoo   int64   = 1234               // testcase type int64
-	floatFoo float64 = 1234               // testcase type float64
+	strFoo   string  = "tserr_foo"              // testcase type string
+	errFoo   error   = fmt.Errorf("%s", strFoo) // testcase type error
+	intFoo   int64   = 1234                     // testcase type int64
+	floatFoo float64 = 1234                     // testcase type float64
 )
 
 func TestCheckNil(t *testing.T) {
 	if err := Check(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -74,9 +74,25 @@ func TestNotExistent(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
+func TestAlreadyExistent(t *testing.T) {
+	a := strFoo
+	em := &errmsgAlreadyExistent
+	err := AlreadyExistent(a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
 func TestOpNil(t *testing.T) {
 	if err := Op(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -116,22 +132,6 @@ func TestNilFailed(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
-func TestNotNil(t *testing.T) {
-	a := strFoo
-	em := &errmsgNotNil
-	err := NotNil(a)
-	if err == nil {
-		t.Fatal(errNil)
-	}
-	testValidJson(t, err)
-	emsg := errmsg{
-		em.Id,
-		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
-	}
-	testEqualJson(t, err, &emsg)
-}
-
 func TestEmpty(t *testing.T) {
 	a := strFoo
 	em := &errmsgEmpty
@@ -148,25 +148,9 @@ func TestEmpty(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
-func TestNotEmpty(t *testing.T) {
-	a := strFoo
-	em := &errmsgNotEmpty
-	err := NotEmpty(a)
-	if err == nil {
-		t.Fatal(errNil)
-	}
-	testValidJson(t, err)
-	emsg := errmsg{
-		em.Id,
-		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
-	}
-	testEqualJson(t, err, &emsg)
-}
-
 func TestEqualStrNil(t *testing.T) {
 	if err := EqualStr(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -192,7 +176,7 @@ func TestEqualStr(t *testing.T) {
 
 func TestTypeNotMatchingNil(t *testing.T) {
 	if err := TypeNotMatching(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -233,7 +217,7 @@ func TestForbidden(t *testing.T) {
 
 func TestReturnNil(t *testing.T) {
 	if err := Return(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -259,7 +243,7 @@ func TestReturn(t *testing.T) {
 
 func TestHigherNil(t *testing.T) {
 	if err := Higher(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -285,7 +269,7 @@ func TestHigher(t *testing.T) {
 
 func TestEqualNil(t *testing.T) {
 	if err := Equal(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -311,7 +295,7 @@ func TestEqual(t *testing.T) {
 
 func TestLowerNil(t *testing.T) {
 	if err := Lower(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -353,7 +337,7 @@ func TestNotSet(t *testing.T) {
 
 func TestNotAvailableNil(t *testing.T) {
 	if err := NotAvailable(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -378,7 +362,7 @@ func TestNotAvailable(t *testing.T) {
 
 func TestEqualfNil(t *testing.T) {
 	if err := Equalf(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
@@ -420,7 +404,7 @@ func TestNonPrintable(t *testing.T) {
 
 func TestNotEqualNil(t *testing.T) {
 	if err := NotEqual(nil); err == nil {
-		t.Errorf(errNil)
+		t.Errorf("%s", errNil)
 	}
 }
 
