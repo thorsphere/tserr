@@ -1,28 +1,24 @@
-// Package tserr provides a simple API for standardized error messages
-// in the JSON format.
+// Package tserr provides a small, opinionated toolkit for structured error
+// messages in JSON format, with an HTTP-status-code-aligned code.
 //
-// The tserr package provides easy-to-use functions to get standardized
-// error messages for typical errors. The error messages are fomatted in
-// the JSON format:
+// Each function returns an error whose string is JSON like:
 //
 //	{"error":{"id":<int>,"code":<int>,"message":"<string>"}}
 //
-// The root element is named "error". "id" is a consecutively numbered
-// id. "code" is a relating HTTP status code. "message" contains the actual
-// pre-defined error message.
+// - `id` is a package-level error identifier (incremental, `0` = nil pointer).
+// - `code` is a related HTTP status code (e.g. 400, 404, 409, 500).
+// - `message` is a pre-defined message template (supports fmt-style verbs).
 //
-// The error message may contain verbs to be filled by arguments. The
-// arguments for the verbs are provided as function arguments. A function
-// may hold one argument used as one verb in the error message. A function
-// may hold multiple arguments used for more than one verb in the error
-// message. Multiple arguments are passed to a function as a pointer to
-// a struct, e.g.,
+// Two patterns exist:
+// 1. Single-arg errors via direct function params, e.g. `tserr.Empty("path")`.
+// 2. Multi-arg errors via struct pointer args, e.g.:
 //
-//	err := tserr.EqualStr(&tserr.EqualStrArgs{X: "test1", Y: "test2"})
+//	err := tserr.EqualStr(&tserr.EqualStrArgs{
+//	    Var: "name", Actual: "foo", Want: "bar",
+//	})
 //
-// Output with fmt.Println(err):
-//
-//	{"error":{"id":6,"code":500,"message":"test1 does not equal test2"}}
+// If a multi-arg struct pointer is nil, `tserr.NilPtr()` is returned.
+// Otherwise the template is formatted and wrapped as JSON.
 //
 // Copyright (c) 2023-2026 thorsphere.
 // All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
