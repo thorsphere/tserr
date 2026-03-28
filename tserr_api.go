@@ -73,6 +73,12 @@ func NilFailed(Op string) error {
 	return errorf(&errmsgNilFailed, Op)
 }
 
+// NilExpected can be used if the function implementing an operation does not return nil, but nil is expected. A default use case are Test functions.
+// Op is the name of the operation, for example, ExistsFile
+func NilExpected(Op string) error {
+	return errorf(&errmsgNilExpected, Op)
+}
+
 // Empty can be used if a required object is empty but not allowed to be empty, for example, an input argument of type string.
 // F is the name of the empty object, for example, filename
 func Empty(F string) error {
