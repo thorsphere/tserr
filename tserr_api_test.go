@@ -25,12 +25,12 @@ import (
 	"testing" // testing
 )
 
-// testcases for types string and error
+// test variables
 var (
-	strFoo   string  = "tserr_foo"              // testcase type string
-	errFoo   error   = fmt.Errorf("%s", strFoo) // testcase type error
-	intFoo   int64   = 1234                     // testcase type int64
-	floatFoo float64 = 1234                     // testcase type float64
+	strFoo   string  = "foo"                   // test variable of type string
+	errFoo   error   = fmt.Errorf("foo error") // test variable of type error
+	intFoo   int64   = 42                      // test variable of type int64
+	floatFoo float64 = 314                     // test variable of type float64
 )
 
 func TestCheckNil(t *testing.T) {
