@@ -1,6 +1,7 @@
 # tserr
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/thorsphere/tserr)](https://goreportcard.com/report/github.com/thorsphere/tserr)
+[![CodeFactor](https://www.codefactor.io/repository/github/thorsphere/tserr/badge)](https://www.codefactor.io/repository/github/thorsphere/tserr)
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/tserr)
 
 [![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/thorsphere/tserr)](https://pkg.go.dev/mod/github.com/thorsphere/tserr)
@@ -14,66 +15,93 @@
 ![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/tserr)
 ![GitHub](https://img.shields.io/github/license/thorsphere/tserr)
 
-The package tserr is a simple error interface in [Go](https://go.dev/). The interface provides standardized error messages of type `error` by function calls. Errors may contain verbs, which are provided by the function arguments.
+tserr is a lightweight Go package for generating standardized, structured error messages in JSON format. It provides a simple, consistent approach to error handling without any external dependencies.
 
-- **Simple**: Without configuration, just function calls
-- **Easy to parse**: All error messages in JSON format
-- **Tested**: Unit tests with high code coverage
-- **Dependencies**: Only depends on the [Go Standard Library](https://pkg.go.dev/std)
+## Key Features
+
+- **Structured Output**: All errors are formatted as JSON for easy parsing and logging
+- **Zero Dependencies**: Only uses the [Go Standard Library](https://pkg.go.dev/std)
+- **Simple API**: Just function calls, no configuration needed
+- **Tested**: High code coverage with comprehensive unit tests
+- **HTTP-Aligned**: Error codes correspond to HTTP status codes for consistency
+
+## Installation
+
+Add tserr to your Go project:
+
+```bash
+go get github.com/thorsphere/tserr
+```
 
 ## Usage
 
-In the Go app, the package is imported with
+Import the package in your Go code:
 
 ```go
 import "github.com/thorsphere/tserr"
 ```
 
-An error is called by a specific, corresponding function call, e.g., 
+### Two Patterns for Error Functions
+
+tserr supports different calling patterns:
+
+#### Pattern 1: Simple Errors (No Arguments)
+
+For straightforward errors without parameters:
 
 ```go
-err1 := tserr.NilPtr()
+err := tserr.NilPtr()
 ```
 
-The output of `fmt.Println(err1)` is
+#### Pattern 2: Single-Argument Errors
 
-```
-{"error":{"id":0,"code":500,"message":"nil pointer"}}
-```
-
-The error message may contain verbs to be filled by arguments, e.g., with one argument:
+For errors with one parameter:
 
 ```go
 f := "foo.txt"
-err2 := tserr.NotExistent(f)
+err := tserr.NotExistent(f)
 ```
 
-The output of `fmt.Println(err2)` is
+#### Pattern 3: Multi-Argument Errors
 
-```
-{"error":{"id":2,"code":404,"message":"foo.txt does not exist"}}
-```
-
-A function may hold multiple arguments used for more than one verb in the error message. Multiple arguments are passed to a function as a pointer to a struct, e.g.,
+For errors requiring multiple parameters, pass a pointer to a struct:
 
 ```go
-err3 := tserr.EqualStr(&tserr.EqualStrArgs{X: "a", Y: "b"})
+err := tserr.EqualStr(&tserr.EqualStrArgs{
+    Var:    "username",
+    Actual: "alice",
+    Want:   "bob",
+})
 ```
 
-The output of `fmt.Println(err3)` is
+**Important**: All multi-argument error functions check if the struct pointer is nil before processing. If nil, they return `tserr.NilPtr()`.
 
+### Output Format
+
+Every error is formatted as a JSON string with consistent structure:
+
+```json
+{"error":{"id":8,"code":500,"message":"value of username is alice, but expected to be equal to bob"}}
 ```
-{"error":{"id":6,"code":500,"message":"a does not equal b"}}
-```
 
-All error functions with multiple arguments first check, if the pointer to the argument struct is nil. If it is nil, the error function returns NilPtr. Otherwise, it returns the corresponding error message.
+## JSON Format Details
 
-## JSON format
+Each error message contains three components:
 
-The error messages are formatted in the JSON format. The root element is named "error". Each error message has an "id" which is consecutively numbered. "code" is a relating HTTP status code. "message" contains the actual pre-defined error message.
+- **`id`**: A unique, incrementally-numbered error identifier (e.g., 0 for nil pointer, 2 for not existent)
+- **`code`**: An HTTP status code corresponding to the error category (e.g., 404 for not found, 400 for bad request)
+- **`message`**: The error message (may contain formatted values from function arguments)
 
-```
-{"error":{"id":<int>,"code":<int>,"message":"<string>"}}
+Structure:
+
+```json
+{
+  "error": {
+    "id": <int>,
+    "code": <int>,
+    "message": "<string>"
+  }
+}
 ```
 
 ## Example
@@ -88,31 +116,40 @@ import (
 )
 
 func main() {
+	// Simple error
 	err1 := tserr.NilPtr()
 	fmt.Println(err1)
 
-	f := "foo.txt"
-	err2 := tserr.NotExistent(f)
+	// Single-argument error
+	filename := "config.json"
+	err2 := tserr.NotExistent(filename)
 	fmt.Println(err2)
 
-	err3 := tserr.EqualStr(&tserr.EqualStrArgs{X: "a", Y: "b"})
+	// Multi-argument error
+	err3 := tserr.EqualStr(&tserr.EqualStrArgs{
+		Var:    "port",
+		Actual: "8000",
+		Want:   "3000",
+	})
 	fmt.Println(err3)
 }
 ```
 
-[Run in Go Playground](https://go.dev/play/p/L5u1D2Iy_M5)
+[Run in Go Playground](https://go.dev/play/p/s9IF9NUVA-y)
 
 Output:
-```
+```json
 {"error":{"id":0,"code":500,"message":"nil pointer"}}
-{"error":{"id":2,"code":404,"message":"foo.txt does not exist"}}
-{"error":{"id":6,"code":400,"message":"a does not equal b"}}
+{"error":{"id":2,"code":404,"message":"config.json does not exist"}}
+{"error":{"id":8,"code":500,"message":"value of port is 8000, but expected to be equal to 3000"}}
 ```
 
-## Links
+## Documentation & Resources
 
-[Godoc](https://pkg.go.dev/github.com/thorsphere/tserr)
+- [Go Package Documentation](https://pkg.go.dev/github.com/thorsphere/tserr) — Complete API reference
+- [Go Report Card](https://goreportcard.com/report/github.com/thorsphere/tserr) — Code quality metrics
+- [Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Ftserr) — Dependency analysis
 
-[Go Report Card](https://goreportcard.com/report/github.com/thorsphere/tserr)
+## License
 
-[Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Ftserr)
+Copyright (c) 2023-2026 thorsphere. Licensed under the GNU Affero General Public License v3.0. See [LICENSE](LICENSE) for details.
