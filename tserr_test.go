@@ -14,8 +14,6 @@ import (
 var (
 	// a function under test returns nil, but an error is expected
 	errNil string = "nil returned, but error expected"
-	// a function under test returns an error, but nil is expected
-	errNNil string = "error returned, but nil expected"
 )
 
 // TestErrorfNil tests the return value of errorf if nil is provided.
@@ -53,7 +51,7 @@ func testValidJson(t *testing.T, e error) {
 	}
 	// convert error to []byte type and check for valid JSON format using
 	// the encoding/json standard library package
-	if !json.Valid([]byte(fmt.Sprintf("%v", e))) {
+	if !json.Valid(fmt.Appendf(nil, "%v", e)) {
 		// report error in case the error message is not in valid JSON format
 		t.Error("not in valid json format")
 	}
@@ -82,16 +80,5 @@ func testEqualJson(t *testing.T, e error, emsg *errmsg) {
 	// return an error, if error messages do not match
 	if fmt.Sprintf("%v", e) != string(j) {
 		t.Errorf("%v does not equal %v", e, string(j))
-	}
-}
-
-// BenchmarkNil performs a benchmark calling NilPtr.
-func BenchmarkNil(b *testing.B) {
-	var err [2]error
-	// Reset benchmark timer
-	b.ResetTimer()
-	// Run benchmark with NilPtr()
-	for i := 0; i < b.N; i++ {
-		err[i&0x1] = NilPtr()
 	}
 }

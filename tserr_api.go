@@ -174,7 +174,7 @@ type EqualArgs struct {
 	Want int64
 }
 
-// Equal can be used if an integer tails to be equal to an expected value.
+// Equal can be used if an integer fails to be equal to an expected value.
 func Equal(a *EqualArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -268,8 +268,30 @@ func Duplicate(F string) error {
 	return errorf(&errmsgDuplicate, F)
 }
 
-// Locked can be used if a service is locked, for example, because it is still running.
+// Locked can be used if a service is locked, for example, because it is still running
 // S is the name of the service which is locked
 func Locked(S string) error {
 	return errorf(&errmsgLocked, S)
+}
+
+// MethodNotAllowedArgs holds the required arguments for the error function MethodNotAllowed
+type MethodNotAllowedArgs struct {
+	// Method is the name of the method that is not allowed
+	Method string
+	// Resource is the name of the resource for which the method is not allowed
+	Resource string
+}
+
+// MethodNotAllowed can be used if a method is not allowed for a given resource
+func MethodNotAllowed(a *MethodNotAllowedArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgMethodNotAllowed, a.Method, a.Resource)
+}
+
+// InvalidJson can be used if a JSON payload is invalid and cannot be parsed
+// Err is the error that occurred while parsing the JSON
+func InvalidJson(Err error) error {
+	return errorf(&errmsgInvalidJson, Err)
 }

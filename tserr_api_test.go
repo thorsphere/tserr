@@ -474,3 +474,44 @@ func TestLocked(t *testing.T) {
 	}
 	testEqualJson(t, err, &emsg)
 }
+
+func TestMethodNotAllowedNil(t *testing.T) {
+	if err := MethodNotAllowed(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestMethodNotAllowed(t *testing.T) {
+	a := MethodNotAllowedArgs{
+		Method:   strFoo,
+		Resource: strFoo,
+	}
+	em := &errmsgMethodNotAllowed
+	err := MethodNotAllowed(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Method, a.Resource)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
+func TestInvalidJson(t *testing.T) {
+	a := errFoo
+	em := &errmsgInvalidJson
+	err := InvalidJson(a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+	}
+	testEqualJson(t, err, &emsg)
+}
