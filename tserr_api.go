@@ -295,3 +295,9 @@ func MethodNotAllowed(a *MethodNotAllowedArgs) error {
 func InvalidJson(Err error) error {
 	return errorf(&errmsgInvalidJson, Err)
 }
+
+// InvalidTimestampFormat can be used if a timestamp is invalid and cannot be parsed
+// Err is the error that occurred while parsing the timestamp
+func InvalidTimestampFormat(Err error) error {
+	return errorf(&errmsgInvalidTimestampFormat, Err)
+}
