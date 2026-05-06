@@ -1,0 +1,25 @@
+// Package tserr exports error functions following three calling patterns:
+//
+//  1. No arguments: Simple errors requiring no parameters,
+//     e.g., NilPtr() (defined in tserr_nil.go)
+//
+//  2. Single argument: Errors with one parameter passed directly,
+//     e.g., NotExistent("config.json")
+//
+//  3. Multiple arguments: Errors with multiple parameters passed via struct pointer,
+//     e.g., EqualStr(&tserr.EqualStrArgs{Var: "port", Actual: "9000", Want: "3000"})
+//
+// For pattern 3 (struct pointer arguments), each error function checks if the struct
+// pointer is nil. If nil, it returns NilPtr(). Otherwise, it formats the error message:
+//
+//	if a == nil {
+//	    return NilPtr()
+//	}
+//	return errorf(&errmsgEqualStr, a.Var, a.Actual, a.Want)
+//
+// All exported error functions except NilPtr are defined here. NilPtr is in tserr_nil.go.
+//
+// Copyright (c) 2023-2026 thorsphere.
+// All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
+// that can be found in the LICENSE file.
+package tserr
