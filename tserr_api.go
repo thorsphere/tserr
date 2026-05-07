@@ -301,3 +301,19 @@ func InvalidJson(Err error) error {
 func InvalidTimestampFormat(Err error) error {
 	return errorf(&errmsgInvalidTimestampFormat, Err)
 }
+
+// StatusNotMatchingArgs holds the required arguments for the error function StatusNotMatching
+type StatusNotMatchingArgs struct {
+	// Expected is the expected status
+	Expected int
+	// Actual is the actual status not matching the expected status
+	Actual int
+}
+
+// StatusNotMatching can be used if a status is not matching the expected status
+func StatusNotMatching(a *StatusNotMatchingArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgStatusNotMatching, a.Expected, a.Actual)
+}

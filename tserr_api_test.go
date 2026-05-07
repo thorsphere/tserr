@@ -29,7 +29,8 @@ import (
 var (
 	strFoo   string  = "foo"                   // test variable of type string
 	errFoo   error   = fmt.Errorf("foo error") // test variable of type error
-	intFoo   int64   = 42                      // test variable of type int64
+	int64Foo int64   = 42                      // test variable of type int64
+	intFoo   int     = 7                       // test variable of type int
 	floatFoo float64 = 314                     // test variable of type float64
 )
 
@@ -266,8 +267,8 @@ func TestHigherNil(t *testing.T) {
 func TestHigher(t *testing.T) {
 	a := HigherArgs{
 		Var:        strFoo,
-		Actual:     intFoo,
-		LowerBound: intFoo,
+		Actual:     int64Foo,
+		LowerBound: int64Foo,
 	}
 	em := &errmsgHigher
 	err := Higher(&a)
@@ -292,8 +293,8 @@ func TestEqualNil(t *testing.T) {
 func TestEqual(t *testing.T) {
 	a := EqualArgs{
 		Var:    strFoo,
-		Actual: intFoo,
-		Want:   intFoo,
+		Actual: int64Foo,
+		Want:   int64Foo,
 	}
 	em := &errmsgEqual
 	err := Equal(&a)
@@ -318,8 +319,8 @@ func TestLowerNil(t *testing.T) {
 func TestLower(t *testing.T) {
 	a := LowerArgs{
 		Var:    strFoo,
-		Actual: intFoo,
-		Want:   intFoo,
+		Actual: int64Foo,
+		Want:   int64Foo,
 	}
 	em := &errmsgLower
 	err := Lower(&a)
@@ -528,6 +529,31 @@ func TestInvalidTimestampFormat(t *testing.T) {
 		em.Id,
 		em.C,
 		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
+func TestStatusNotMatchingNil(t *testing.T) {
+	if err := StatusNotMatching(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestStatusNotMatching(t *testing.T) {
+	a := StatusNotMatchingArgs{
+		Expected: intFoo,
+		Actual:   intFoo,
+	}
+	em := &errmsgStatusNotMatching
+	err := StatusNotMatching(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Expected, a.Actual)),
 	}
 	testEqualJson(t, err, &emsg)
 }

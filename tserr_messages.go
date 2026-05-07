@@ -32,4 +32,5 @@ var (
 	errmsgMethodNotAllowed       = errmsg{23, http.StatusMethodNotAllowed, "Method %v is not allowed for %v"}
 	errmsgInvalidJson            = errmsg{24, http.StatusBadRequest, "Invalid JSON: %w"}
 	errmsgInvalidTimestampFormat = errmsg{25, http.StatusBadRequest, "Invalid Timestamp Format: %w"}
+	errmsgStatusNotMatching      = errmsg{26, http.StatusInternalServerError, ""}
 )
