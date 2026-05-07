@@ -7,7 +7,7 @@ package gen_test
 import (
 	"testing" // testing
 
-	"github.com/thorstenrie/tserr/gen" // tserr/gen
+	"github.com/thorsphere/tserr/gen" // tserr/gen
 )
 
 // TestGenerate tests the Generate function of the tserrgen package.

@@ -410,6 +410,24 @@
                         "comment": "Err is the error that occurred while parsing the timestamp"
                     }
                 ]
+            },
+            {
+                "name": "StatusNotMatching",
+                "comment": "StatusNotMatching can be used if a status is not matching the expected status",
+                "code": "http.StatusInternalServerError",
+                "message": "",
+                "param":  [
+                    {
+                        "name": "Expected",
+                        "type": "int",
+                        "comment": "Expected is the expected status"
+                    },
+                    {
+                        "name": "Actual",
+                        "type": "int",
+                        "comment": "Actual is the actual status not matching the expected status"
+                    }
+                ]
             }
         ]
     }

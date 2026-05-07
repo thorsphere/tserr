@@ -15,9 +15,24 @@
 ![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/tserr)
 ![GitHub](https://img.shields.io/github/license/thorsphere/tserr)
 
-tserr is a lightweight Go package for generating standardized, structured error messages in JSON format. It provides a simple, consistent approach to error handling without any external dependencies.
+**tserr** is a Go monorepo providing a lightweight, zero-dependency package for generating standardized, structured error messages in JSON format, along with a powerful code generator companion.
 
-## Key Features
+## Monorepo Structure
+
+This repository contains two main components:
+
+| Component | Path | Description |
+| --------- | ---- | ----------- |
+| **tserr Library** | `/` | The core error handling library. Provides consistent, HTTP-aligned JSON errors. |
+| **tserr Generator**| `/gen` | The code generator tool (formerly `tserrgen`) used to automate error creation. |
+
+---
+
+## Part 1: The `tserr` Library
+
+The main library provides a simple, consistent approach to error handling without any external dependencies.
+
+### Key Features
 
 - **Structured Output**: All errors are formatted as JSON for easy parsing and logging
 - **Zero Dependencies**: Only uses the [Go Standard Library](https://pkg.go.dev/std)
@@ -25,47 +40,33 @@ tserr is a lightweight Go package for generating standardized, structured error 
 - **Tested**: High code coverage with comprehensive unit tests
 - **HTTP-Aligned**: Error codes correspond to HTTP status codes for consistency
 
-## Installation
+### Installation
 
-Add tserr to your Go project:
+Add the library to your Go project:
 
 ```bash
 go get github.com/thorsphere/tserr
 ```
 
-## Usage
+### Usage Styles
 
-Import the package in your Go code:
+Import the package in your Go code (`import "github.com/thorsphere/tserr"`). `tserr` supports different calling patterns:
 
-```go
-import "github.com/thorsphere/tserr"
-```
-
-### Two Patterns for Error Functions
-
-tserr supports different calling patterns:
-
-#### Pattern 1: Simple Errors (No Arguments)
-
+#### 1. Simple Errors (No Arguments)
 For straightforward errors without parameters:
-
 ```go
 err := tserr.NilPtr()
 ```
 
-#### Pattern 2: Single-Argument Errors
-
+#### 2. Single-Argument Errors
 For errors with one parameter:
-
 ```go
 f := "foo.txt"
 err := tserr.NotExistent(f)
 ```
 
-#### Pattern 3: Multi-Argument Errors
-
+#### 3. Multi-Argument Errors
 For errors requiring multiple parameters, pass a pointer to a struct:
-
 ```go
 err := tserr.EqualStr(&tserr.EqualStrArgs{
     Var:    "username",
@@ -73,76 +74,70 @@ err := tserr.EqualStr(&tserr.EqualStrArgs{
     Want:   "bob",
 })
 ```
-
-**Important**: All multi-argument error functions check if the struct pointer is nil before processing. If nil, they return `tserr.NilPtr()`.
+*Note: Multi-argument error functions check if the struct pointer is nil before processing. If nil, they return `tserr.NilPtr()`.*
 
 ### Output Format
 
 Every error is formatted as a JSON string with consistent structure:
 
 ```json
-{"error":{"id":8,"code":500,"message":"value of username is alice, but expected to be equal to bob"}}
-```
-
-## JSON Format Details
-
-Each error message contains three components:
-
-- **`id`**: A unique, incrementally-numbered error identifier (e.g., 0 for nil pointer, 2 for not existent)
-- **`code`**: An HTTP status code corresponding to the error category (e.g., 404 for not found, 400 for bad request)
-- **`message`**: The error message (may contain formatted values from function arguments)
-
-Structure:
-
-```json
 {
   "error": {
-    "id": <int>,
-    "code": <int>,
-    "message": "<string>"
+    "id": 8,
+    "code": 500,
+    "message": "value of username is alice, but expected to be equal to bob"
   }
 }
 ```
 
-## Example
+- **`id`**: A unique, incrementally-numbered error identifier.
+- **`code`**: An HTTP status code corresponding to the error category.
+- **`message`**: The error message (can contain formatted values from arguments).
+
+### Example Code
 
 ```go
 package main
 
 import (
 	"fmt"
-
 	"github.com/thorsphere/tserr"
 )
 
 func main() {
-	// Simple error
-	err1 := tserr.NilPtr()
-	fmt.Println(err1)
-
-	// Single-argument error
-	filename := "config.json"
-	err2 := tserr.NotExistent(filename)
-	fmt.Println(err2)
+	// Simple & Single-argument
+	fmt.Println(tserr.NilPtr())
+	fmt.Println(tserr.NotExistent("config.json"))
 
 	// Multi-argument error
-	err3 := tserr.EqualStr(&tserr.EqualStrArgs{
+	fmt.Println(tserr.EqualStr(&tserr.EqualStrArgs{
 		Var:    "port",
 		Actual: "8000",
 		Want:   "3000",
-	})
-	fmt.Println(err3)
 }
 ```
 
 [Run in Go Playground](https://go.dev/play/p/s9IF9NUVA-y)
 
-Output:
-```json
-{"error":{"id":0,"code":500,"message":"nil pointer"}}
-{"error":{"id":2,"code":404,"message":"config.json does not exist"}}
-{"error":{"id":8,"code":500,"message":"value of port is 8000, but expected to be equal to 3000"}}
+---
+
+## ⚡ Part 2: The `tserr` Generator (`/gen`)
+
+The generator automates the creation of custom error wrappers and types, streamlining the usage of `tserr` across large applications.
+
+### Installation
+
+You can install the generator globally via `go install`:
+
+```bash
+go install github.com/thorsphere/tserr/gen@latest
 ```
+
+### Usage
+
+Please see the [Generator Documentation](./gen/README.md) for detailed instructions, configuration options, and usage examples.
+
+---
 
 ## Documentation & Resources
 
@@ -150,6 +145,6 @@ Output:
 - [Go Report Card](https://goreportcard.com/report/github.com/thorsphere/tserr) — Code quality metrics
 - [Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Ftserr) — Dependency analysis
 
-## License
+## ⚖️ License
 
 Copyright (c) 2023-2026 thorsphere. Licensed under the GNU Affero General Public License v3.0. See [LICENSE](LICENSE) for details.

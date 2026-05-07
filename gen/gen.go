@@ -38,7 +38,8 @@ var (
 	tserr_testvars    = []lpcode.TestVar{
 		{T: "string", N: "strFoo", V: "\"foo\""},
 		{T: "error", N: "errFoo", V: "fmt.Errorf(\"foo error\")"},
-		{T: "int64", N: "intFoo", V: "42"},
+		{T: "int64", N: "int64Foo", V: "42"},
+		{T: "int", N: "intFoo", V: "7"},
 		{T: "float64", N: "floatFoo", V: "314"},
 	}
 )
