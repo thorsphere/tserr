@@ -317,3 +317,9 @@ func StatusNotMatching(a *StatusNotMatchingArgs) error {
 	}
 	return errorf(&errmsgStatusNotMatching, a.Expected, a.Actual)
 }
+
+// NotFound can be used if a required object cannot be found, for example, a file or a database entry.
+// F is the name of the object not found, for example, a filename or a database entry
+func NotFound(F string) error {
+	return errorf(&errmsgNotFound, F)
+}

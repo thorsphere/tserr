@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.19.0",
+        "version": "1.19.1",
         "errors": [
             {
                 "name": "Check",
@@ -426,6 +426,19 @@
                         "name": "Actual",
                         "type": "int",
                         "comment": "Actual is the actual status not matching the expected status"
+                    }
+                ]
+            },
+            {
+                "name": "NotFound",
+                "comment": "NotFound can be used if a required object cannot be found, for example, a file or a database entry.",
+                "code": "http.StatusNotFound",
+                "message": "%v not found",
+                "param":  [
+                    {
+                        "name": "F",
+                        "type": "string",
+                        "comment": "F is the name of the object not found, for example, a filename or a database entry"
                     }
                 ]
             }

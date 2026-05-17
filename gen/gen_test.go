@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file.
 package gen_test
 
-// Import Go standard library packages and the tserrgen package.
+// Import Go standard library packages and the tserr/gen package.
 import (
 	"testing" // testing
 

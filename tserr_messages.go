@@ -33,4 +33,5 @@ var (
 	errmsgInvalidJson            = errmsg{24, http.StatusBadRequest, "Invalid JSON: %w"}
 	errmsgInvalidTimestampFormat = errmsg{25, http.StatusBadRequest, "Invalid Timestamp Format: %w"}
 	errmsgStatusNotMatching      = errmsg{26, http.StatusInternalServerError, ""}
+	errmsgNotFound               = errmsg{27, http.StatusNotFound, "%v not found"}
 )
