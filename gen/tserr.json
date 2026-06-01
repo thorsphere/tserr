@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.19.1",
+        "version": "1.19.2",
         "errors": [
             {
                 "name": "Check",
@@ -250,9 +250,9 @@
                         "comment": "Actual is the actual value of Var"
                     },
                     {
-                        "name": "Want",
+                        "name": "HigherBound",
                         "type": "int64",
-                        "comment": "Want is the expected value of Var"
+                        "comment": "HigherBound is the higher bound. Actual is expected to be equal or lower than HigherBound"
                     }
                 ]
             },

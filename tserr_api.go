@@ -188,8 +188,8 @@ type LowerArgs struct {
 	Var string
 	// Actual is the actual value of Var
 	Actual int64
-	// Want is the expected value of Var
-	Want int64
+	// HigherBound is the higher bound. Actual is expected to be equal or lower than Higherbound
+	HigherBound int64
 }
 
 // Lower can be used if an integer fails to be lower than a defined higher bound.
@@ -197,7 +197,7 @@ func Lower(a *LowerArgs) error {
 	if a == nil {
 		return NilPtr()
 	}
-	return errorf(&errmsgLower, a.Var, a.Actual, a.Want)
+	return errorf(&errmsgLower, a.Var, a.Actual, a.HigherBound)
 }
 
 // NotSet can be used if a required object is not set, for example, an environment variable.

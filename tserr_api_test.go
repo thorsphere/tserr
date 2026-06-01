@@ -318,9 +318,9 @@ func TestLowerNil(t *testing.T) {
 
 func TestLower(t *testing.T) {
 	a := LowerArgs{
-		Var:    strFoo,
-		Actual: int64Foo,
-		Want:   int64Foo,
+		Var:         strFoo,
+		Actual:      int64Foo,
+		HigherBound: int64Foo,
 	}
 	em := &errmsgLower
 	err := Lower(&a)
@@ -331,7 +331,7 @@ func TestLower(t *testing.T) {
 	emsg := errmsg{
 		em.Id,
 		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Var, a.Actual, a.Want)),
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Var, a.Actual, a.HigherBound)),
 	}
 	testEqualJson(t, err, &emsg)
 }
