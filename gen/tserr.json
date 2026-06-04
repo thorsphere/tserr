@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.19.2",
+        "version": "1.20.0",
         "errors": [
             {
                 "name": "Check",
@@ -211,8 +211,8 @@
                 ]
             },
             {
-                "name": "Equal",
-                "comment": "Equal can be used if an integer fails to be equal to an expected value.",
+                "name": "EqualInt",
+                "comment": "EqualInt can be used if an integer fails to be equal to an expected value.",
                 "code": "http.StatusInternalServerError",
                 "message": "value of %v is %d, but expected to be equal to %d",
                 "param": [
@@ -230,6 +230,24 @@
                         "name": "Want",
                         "type": "int64",
                         "comment": "Want is the expected value of Var"
+                    }
+                ]
+            },
+            {
+                "name": "Equal",
+                "comment": "Equal can be used if two variables are not equal but expected to be equal.",
+                "code": "http.StatusInternalServerError",
+                "message": "variable %v does not equal variable %v, but is expected to be equal",
+                "param": [
+                    {
+                        "name": "X",
+                        "type": "string",
+                        "comment": "Name of the variable equal to Y"
+                    },
+                    {
+                        "name": "Y",
+                        "type": "string",
+                        "comment": "Name of the variable equal to X"
                     }
                 ]
             },

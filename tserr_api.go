@@ -164,8 +164,8 @@ func Higher(a *HigherArgs) error {
 	return errorf(&errmsgHigher, a.Var, a.Actual, a.LowerBound)
 }
 
-// EqualArgs holds the required arguments for the error function Equal
-type EqualArgs struct {
+// EqualIntArgs holds the required arguments for the error function EqualInt
+type EqualIntArgs struct {
 	// Var is the name of the variable
 	Var string
 	// Actual is the actual value of Var
@@ -174,12 +174,28 @@ type EqualArgs struct {
 	Want int64
 }
 
-// Equal can be used if an integer fails to be equal to an expected value.
+// EqualInt can be used if an integer fails to be equal to an expected value.
+func EqualInt(a *EqualIntArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgEqualInt, a.Var, a.Actual, a.Want)
+}
+
+// EqualArgs holds the required arguments for the error function Equal
+type EqualArgs struct {
+	// Name of the variable equal to Y
+	X string
+	// Name of the variable equal to X
+	Y string
+}
+
+// Equal can be used if two variables are not equal but expected to be equal.
 func Equal(a *EqualArgs) error {
 	if a == nil {
 		return NilPtr()
 	}
-	return errorf(&errmsgEqual, a.Var, a.Actual, a.Want)
+	return errorf(&errmsgEqual, a.X, a.Y)
 }
 
 // LowerArgs holds the required arguments for the error function Lower
@@ -188,7 +204,7 @@ type LowerArgs struct {
 	Var string
 	// Actual is the actual value of Var
 	Actual int64
-	// HigherBound is the higher bound. Actual is expected to be equal or lower than Higherbound
+	// HigherBound is the higher bound. Actual is expected to be equal or lower than HigherBound
 	HigherBound int64
 }
 

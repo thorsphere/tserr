@@ -284,6 +284,32 @@ func TestHigher(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
+func TestEqualIntNil(t *testing.T) {
+	if err := EqualInt(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestEqualInt(t *testing.T) {
+	a := EqualIntArgs{
+		Var:    strFoo,
+		Actual: int64Foo,
+		Want:   int64Foo,
+	}
+	em := &errmsgEqualInt
+	err := EqualInt(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Var, a.Actual, a.Want)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
 func TestEqualNil(t *testing.T) {
 	if err := Equal(nil); err == nil {
 		t.Errorf("%s", errNil)
@@ -292,9 +318,8 @@ func TestEqualNil(t *testing.T) {
 
 func TestEqual(t *testing.T) {
 	a := EqualArgs{
-		Var:    strFoo,
-		Actual: int64Foo,
-		Want:   int64Foo,
+		X: strFoo,
+		Y: strFoo,
 	}
 	em := &errmsgEqual
 	err := Equal(&a)
@@ -305,7 +330,7 @@ func TestEqual(t *testing.T) {
 	emsg := errmsg{
 		em.Id,
 		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Var, a.Actual, a.Want)),
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.X, a.Y)),
 	}
 	testEqualJson(t, err, &emsg)
 }

@@ -252,7 +252,7 @@ func genApiTestFunc1(m *errmsg) (*lpcode.Code, error) {
 	l := len(m.Param)
 	// If the number of parameters is not equal to 1, return an error indicating that the expected number of parameters is 1.
 	if l != 1 {
-		return nil, tserr.Equal(&tserr.EqualArgs{Var: "number of parameters", Actual: int64(l), Want: 1})
+		return nil, tserr.EqualInt(&tserr.EqualIntArgs{Var: "number of parameters", Actual: int64(l), Want: 1})
 
 	}
 	// Create a new code snippet for the API test function using the lpcode package.
@@ -332,7 +332,7 @@ func genApiFunc1(m *errmsg) (*lpcode.Code, error) {
 	l := len(m.Param)
 	// If the number of parameters is not equal to 1, return an error indicating that the expected number of parameters is 1
 	if l != 1 {
-		return nil, tserr.Equal(&tserr.EqualArgs{Var: "number of parameters", Actual: int64(l), Want: 1})
+		return nil, tserr.EqualInt(&tserr.EqualIntArgs{Var: "number of parameters", Actual: int64(l), Want: 1})
 	}
 	// Create a new code snippet for the API function using the lpcode package.
 	c := lpcode.NewCode().LineComment(m.Comment).LineComment(m.Param[0].Comment).Func1(&lpcode.Func1Args{Name: m.Name, Var: m.Param[0].Name, Type: m.Param[0].Type, Return: "error"})
