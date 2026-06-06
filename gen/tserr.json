@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.20.0",
+        "version": "1.20.1",
         "errors": [
             {
                 "name": "Check",
@@ -433,7 +433,7 @@
                 "name": "StatusNotMatching",
                 "comment": "StatusNotMatching can be used if a status is not matching the expected status",
                 "code": "http.StatusInternalServerError",
-                "message": "",
+                "message": "status does not match: expected %d, actual %d",
                 "param":  [
                     {
                         "name": "Expected",
