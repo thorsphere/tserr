@@ -345,3 +345,9 @@ func StatusNotMatching(a *StatusNotMatchingArgs) error {
 func NotFound(F string) error {
 	return errorf(&errmsgNotFound, F)
 }
+
+// UnexpectedField can be used if a field is not expected, for example, an unknown field name in a parsed input.
+// F is the name of the unexpected field, for example, a field name in an ICS file
+func UnexpectedField(F string) error {
+	return errorf(&errmsgUnexpectedField, F)
+}

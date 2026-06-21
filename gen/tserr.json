@@ -389,7 +389,7 @@
                 "name": "MethodNotAllowed",
                 "comment": "MethodNotAllowed can be used if a method is not allowed for a given resource",
                 "code": "http.StatusMethodNotAllowed",
-                "message": "Method %v is not allowed for %v",
+                "message": "method %v is not allowed for %v",
                 "param": [
                     {
                         "name": "Method",
@@ -407,7 +407,7 @@
                 "name": "InvalidJson",
                 "comment": "InvalidJson can be used if a JSON payload is invalid and cannot be parsed",
                 "code": "http.StatusBadRequest",
-                "message": "Invalid JSON: %w",
+                "message": "invalid JSON: %w",
                 "param":  [
                     {
                         "name": "Err",
@@ -420,7 +420,7 @@
                 "name": "InvalidFormat",
                 "comment": "InvalidFormat can be used if a string is invalid and cannot be parsed according to a given format",
                 "code": "http.StatusBadRequest",
-                "message": "Invalid Format: %v",
+                "message": "invalid format: %v",
                 "param":  [
                     {
                         "name": "S",
@@ -433,7 +433,7 @@
                 "name": "InvalidTimestampFormat",
                 "comment": "InvalidTimestampFormat can be used if a timestamp is invalid and cannot be parsed",
                 "code": "http.StatusBadRequest",
-                "message": "Invalid Timestamp Format: %w",
+                "message": "invalid timestamp format: %w",
                 "param":  [
                     {
                         "name": "Err",
@@ -470,6 +470,19 @@
                         "name": "F",
                         "type": "string",
                         "comment": "F is the name of the object not found, for example, a filename or a database entry"
+                    }
+                ]
+            },
+            {
+                "name": "UnexpectedField",
+                "comment": "UnexpectedField can be used if a field is not expected, for example, an unknown field name in a parsed input.",
+                "code": "http.StatusBadRequest",
+                "message": "unexpected field %v",
+                "param": [
+                    {
+                        "name": "F",
+                        "type": "string",
+                        "comment": "F is the name of the unexpected field, for example, a field name in an ICS file"
                     }
                 ]
             }

@@ -614,3 +614,19 @@ func TestNotFound(t *testing.T) {
 	}
 	testEqualJson(t, err, &emsg)
 }
+
+func TestUnexpectedField(t *testing.T) {
+	a := strFoo
+	em := &errmsgUnexpectedField
+	err := UnexpectedField(a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+	}
+	testEqualJson(t, err, &emsg)
+}

@@ -30,10 +30,11 @@ var (
 	errmsgNotEqual               = errmsg{21, http.StatusInternalServerError, "variable %v equals variable %v, but not allowed to equal"}
 	errmsgDuplicate              = errmsg{22, http.StatusForbidden, "%v is a duplicate and already exists"}
 	errmsgLocked                 = errmsg{23, http.StatusLocked, "%v is locked"}
-	errmsgMethodNotAllowed       = errmsg{24, http.StatusMethodNotAllowed, "Method %v is not allowed for %v"}
-	errmsgInvalidJson            = errmsg{25, http.StatusBadRequest, "Invalid JSON: %w"}
-	errmsgInvalidFormat          = errmsg{26, http.StatusBadRequest, "Invalid Format: %v"}
-	errmsgInvalidTimestampFormat = errmsg{27, http.StatusBadRequest, "Invalid Timestamp Format: %w"}
+	errmsgMethodNotAllowed       = errmsg{24, http.StatusMethodNotAllowed, "method %v is not allowed for %v"}
+	errmsgInvalidJson            = errmsg{25, http.StatusBadRequest, "invalid JSON: %w"}
+	errmsgInvalidFormat          = errmsg{26, http.StatusBadRequest, "invalid format: %v"}
+	errmsgInvalidTimestampFormat = errmsg{27, http.StatusBadRequest, "invalid timestamp format: %w"}
 	errmsgStatusNotMatching      = errmsg{28, http.StatusInternalServerError, "status does not match: expected %d, actual %d"}
 	errmsgNotFound               = errmsg{29, http.StatusNotFound, "%v not found"}
+	errmsgUnexpectedField        = errmsg{30, http.StatusBadRequest, "unexpected field %v"}
 )
