@@ -312,6 +312,12 @@ func InvalidJson(Err error) error {
 	return errorf(&errmsgInvalidJson, Err)
 }
 
+// InvalidFormat can be used if a string is invalid and cannot be parsed according to a given format
+// S is the string that is in invalid format
+func InvalidFormat(S string) error {
+	return errorf(&errmsgInvalidFormat, S)
+}
+
 // InvalidTimestampFormat can be used if a timestamp is invalid and cannot be parsed
 // Err is the error that occurred while parsing the timestamp
 func InvalidTimestampFormat(Err error) error {

@@ -416,6 +416,19 @@
                     }
                 ]
             },
+                        {
+                "name": "InvalidFormat",
+                "comment": "InvalidFormat can be used if a string is invalid and cannot be parsed according to a given format",
+                "code": "http.StatusBadRequest",
+                "message": "Invalid Format: %v",
+                "param":  [
+                    {
+                        "name": "S",
+                        "type": "string",
+                        "comment": "S is the string that is in invalid format"
+                    }
+                ]
+            },
             {
                 "name": "InvalidTimestampFormat",
                 "comment": "InvalidTimestampFormat can be used if a timestamp is invalid and cannot be parsed",

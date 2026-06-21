@@ -32,7 +32,8 @@ var (
 	errmsgLocked                 = errmsg{23, http.StatusLocked, "%v is locked"}
 	errmsgMethodNotAllowed       = errmsg{24, http.StatusMethodNotAllowed, "Method %v is not allowed for %v"}
 	errmsgInvalidJson            = errmsg{25, http.StatusBadRequest, "Invalid JSON: %w"}
-	errmsgInvalidTimestampFormat = errmsg{26, http.StatusBadRequest, "Invalid Timestamp Format: %w"}
-	errmsgStatusNotMatching      = errmsg{27, http.StatusInternalServerError, "status does not match: expected %d, actual %d"}
-	errmsgNotFound               = errmsg{28, http.StatusNotFound, "%v not found"}
+	errmsgInvalidFormat          = errmsg{26, http.StatusBadRequest, "Invalid Format: %v"}
+	errmsgInvalidTimestampFormat = errmsg{27, http.StatusBadRequest, "Invalid Timestamp Format: %w"}
+	errmsgStatusNotMatching      = errmsg{28, http.StatusInternalServerError, "status does not match: expected %d, actual %d"}
+	errmsgNotFound               = errmsg{29, http.StatusNotFound, "%v not found"}
 )
