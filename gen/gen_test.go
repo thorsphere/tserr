@@ -1,13 +1,13 @@
 // Copyright (c) 2023-2026 thorsphere.
-// All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
-// that can be found in the LICENSE file.
+// All Rights Reserved. Use is governed by the Functional Source License v1.1
+// (FSL-1.1-ALv2) that can be found in the LICENSE file.
 package gen_test
 
 // Import Go standard library packages and the tserr/gen package.
 import (
 	"testing" // testing
 
-	"github.com/thorsphere/tserr/gen" // tserr/gen
+	"github.com/thorsphere/tserr/gen" // gen
 )
 
 // TestGenerate tests the Generate function of the tserrgen package.

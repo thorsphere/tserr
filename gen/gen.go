@@ -16,8 +16,8 @@
 // operations, and tserr for consistent error handling throughout the generation process.
 //
 // Copyright (c) 2023-2026 thorsphere.
-// All Rights Reserved. Use is governed with GNU Affero General Public License v3.0
-// that can be found in the LICENSE file.
+// All Rights Reserved. Use is governed by the Functional Source License v1.1
+// (FSL-1.1-ALv2) that can be found in the LICENSE file.
 package gen
 
 // Import Go standard library packages, lpcode, tserr and tsfio
