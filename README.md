@@ -1,19 +1,11 @@
 # tserr
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/thorsphere/tserr)](https://goreportcard.com/report/github.com/thorsphere/tserr)
-[![CodeFactor](https://www.codefactor.io/repository/github/thorsphere/tserr/badge)](https://www.codefactor.io/repository/github/thorsphere/tserr)
-![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/tserr)
-
 [![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/thorsphere/tserr)](https://pkg.go.dev/mod/github.com/thorsphere/tserr)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/thorsphere/tserr)
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/thorsphere/tserr)
-
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/thorsphere/tserr)
-![GitHub last commit](https://img.shields.io/github/last-commit/thorsphere/tserr)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/thorsphere/tserr)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/thorsphere/tserr)
 ![GitHub Top Language](https://img.shields.io/github/languages/top/thorsphere/tserr)
-![GitHub](https://img.shields.io/github/license/thorsphere/tserr)
+[![CodeFactor](https://www.codefactor.io/repository/github/thorsphere/tserr/badge)](https://www.codefactor.io/repository/github/thorsphere/tserr)
+![OSS Lifecycle](https://img.shields.io/osslifecycle/thorsphere/tserr)
 
 **tserr** is a Go monorepo providing a lightweight, zero-dependency package for generating standardized, structured error messages in JSON format, along with a powerful code generator companion.
 
@@ -142,8 +134,9 @@ Please see the [Generator Documentation](./gen/README.md) for detailed instructi
 ## Documentation & Resources
 
 - [Go Package Documentation](https://pkg.go.dev/github.com/thorsphere/tserr) — Complete API reference
-- [Go Report Card](https://goreportcard.com/report/github.com/thorsphere/tserr) — Code quality metrics
 - [Open Source Insights](https://deps.dev/go/github.com%2Fthorsphere%2Ftserr) — Dependency analysis
+
+---
 
 ## ⚖️ License & Commercial Usage
 
@@ -155,14 +148,13 @@ This project is licensed under the **Functional Source License v1.1 (FSL-1.1-ALv
 * If you are a company or institution looking to use this package in a commercial product, service, or business environment, you must secure a commercial license.
 * Each version of this software automatically converts to the fully open-source Apache License, Version 2.0 on the second anniversary of its release.
 
-For full details, please see the [LICENSE](LICENSE) file.
+For full details, please see the [LICENSE](LICENSE.md) file.
 
 ### 💼 Commercial Licensing & Inquiries
 
 To purchase a commercial license or discuss support options, please reach out directly:
 
-📩 **Contact:** business at thorsphere dot com
-💬 **Response Time:** Usually within a couple of business days.
+* 📩 **Contact:** business at thorsphere dot com
+* 💬 **Response Time:** Usually within a couple of business days.
 
 *Please include your company name and a brief overview of your use case so I can provide the right licensing details.*
-
