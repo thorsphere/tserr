@@ -37,4 +37,5 @@ var (
 	errmsgStatusNotMatching      = errmsg{28, http.StatusInternalServerError, "status does not match: expected %d, actual %d"}
 	errmsgNotFound               = errmsg{29, http.StatusNotFound, "%v not found"}
 	errmsgUnexpectedField        = errmsg{30, http.StatusBadRequest, "unexpected field %v"}
+	errmsgUnexpectedError        = errmsg{31, http.StatusInternalServerError, "expected %v error, but received %v"}
 )

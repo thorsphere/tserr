@@ -351,3 +351,19 @@ func NotFound(F string) error {
 func UnexpectedField(F string) error {
 	return errorf(&errmsgUnexpectedField, F)
 }
+
+// UnexpectedErrorArgs holds the required arguments for the error function UnexpectedError
+type UnexpectedErrorArgs struct {
+	// Expected is the expected error message
+	Expected error
+	// Actual is the received error message
+	Actual error
+}
+
+// UnexpectedError can be used if a received error is not the expected error, for example, in a unit test.
+func UnexpectedError(a *UnexpectedErrorArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgUnexpectedError, a.Expected, a.Actual)
+}

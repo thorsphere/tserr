@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.0",
+        "version": "1.21.1",
         "errors": [
             {
                 "name": "Check",
@@ -483,6 +483,24 @@
                         "name": "F",
                         "type": "string",
                         "comment": "F is the name of the unexpected field, for example, a field name in an ICS file"
+                    }
+                ]
+            },
+            {
+                "name": "UnexpectedError",
+                "comment": "UnexpectedError can be used if a received error is not the expected error, for example, in a unit test.",
+                "code": "http.StatusInternalServerError",
+                "message": "expected %v error, but received %v",
+                "param": [
+                    {
+                        "name": "Expected",
+                        "type": "error",
+                        "comment": "Expected is the expected error message"
+                    },
+                    {
+                        "name": "Actual",
+                        "type": "error",
+                        "comment": "Actual is the received error message"
                     }
                 ]
             }

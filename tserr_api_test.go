@@ -630,3 +630,28 @@ func TestUnexpectedField(t *testing.T) {
 	}
 	testEqualJson(t, err, &emsg)
 }
+
+func TestUnexpectedErrorNil(t *testing.T) {
+	if err := UnexpectedError(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestUnexpectedError(t *testing.T) {
+	a := UnexpectedErrorArgs{
+		Expected: errFoo,
+		Actual:   errFoo,
+	}
+	em := &errmsgUnexpectedError
+	err := UnexpectedError(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Expected, a.Actual)),
+	}
+	testEqualJson(t, err, &emsg)
+}
