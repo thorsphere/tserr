@@ -28,7 +28,7 @@ package tserr
 type CheckArgs struct {
 	// F is the name of the object causing the failed check, for example, a filename
 	F string
-	// Err is the error causing the failed check, for example, file is a directory
+	// Err is the error causing the failed check, for example, 'file is a directory'
 	Err error
 }
 
@@ -41,24 +41,24 @@ func Check(a *CheckArgs) error {
 }
 
 // NotExistent can be used if a required object does not exist, for example, a file.
-// F is the name of the object, for example, file name
+// F is the name of the object, for example, a filename
 func NotExistent(F string) error {
 	return errorf(&errmsgNotExistent, F)
 }
 
 // AlreadyExistent can be used if a required object already exists, for example, a file, but is not expected to exist.
-// F is the name of the object, for example, file name
+// F is the name of the object, for example, a filename
 func AlreadyExistent(F string) error {
 	return errorf(&errmsgAlreadyExistent, F)
 }
 
 // OpArgs holds the required arguments for the error function Op
 type OpArgs struct {
-	// Op is the name of the failed operation, for example, WriteStr
+	// Op is the name of the failed operation, for example, 'WriteStr'
 	Op string
 	// Fn is the name of the object passed to the operation, for example, a filename
 	Fn string
-	// Err is the error retrieved from the failed operation, for example, file does not exist
+	// Err is the error returned by the failed operation, for example, 'file does not exist'
 	Err error
 }
 
@@ -70,20 +70,20 @@ func Op(a *OpArgs) error {
 	return errorf(&errmsgOp, a.Op, a.Fn, a.Err)
 }
 
-// NilFailed can be used if the function implementing an operation returns nil, but an error is expected. A default use case are Test functions.
-// Op is the name of the operation, for example, ExistsFile
+// NilFailed can be used if a function implementing an operation returns nil when an error was expected (e.g., in unit tests).
+// Op is the name of the operation, for example, 'ExistsFile'
 func NilFailed(Op string) error {
 	return errorf(&errmsgNilFailed, Op)
 }
 
-// NilExpected can be used if the function implementing an operation does not return nil, but nil is expected. A default use case are Test functions.
-// Op is the name of the operation, for example, ExistsFile
+// NilExpected can be used if a function implementing an operation returns an error when nil was expected (e.g., in unit tests).
+// Op is the name of the operation, for example, 'ExistsFile'
 func NilExpected(Op string) error {
 	return errorf(&errmsgNilExpected, Op)
 }
 
 // Empty can be used if a required object is empty but not allowed to be empty, for example, an input argument of type string.
-// F is the name of the empty object, for example, filename
+// F is the name of the empty object, for example, a parameter or filename
 func Empty(F string) error {
 	return errorf(&errmsgEmpty, F)
 }
@@ -98,7 +98,7 @@ type EqualStrArgs struct {
 	Want string
 }
 
-// EqualStr can be used if a string fails to be equal to an expected string.
+// EqualStr can be used if a string is not equal to an expected string.
 func EqualStr(a *EqualStrArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -108,13 +108,13 @@ func EqualStr(a *EqualStrArgs) error {
 
 // TypeNotMatchingArgs holds the required arguments for the error function TypeNotMatching
 type TypeNotMatchingArgs struct {
-	// Actual is the name of the actual type of the object, for example, a file
+	// Actual is the actual type of the object, for example, 'file'
 	Actual string
-	// Want is the name of the expected, wanted or required type the object should be, for example, a directory
+	// Want is the expected or required type of the object, for example, 'directory'
 	Want string
 }
 
-// TypeNotMatching can be used if the type of an object does not match the expected type
+// TypeNotMatching can be used if the type of an object does not match the expected type.
 func TypeNotMatching(a *TypeNotMatchingArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -130,7 +130,7 @@ func Forbidden(F string) error {
 
 // ReturnArgs holds the required arguments for the error function Return
 type ReturnArgs struct {
-	// Op is the operation
+	// Op is the operation name
 	Op string
 	// Actual is the actual return value returned by Op
 	Actual string
@@ -138,7 +138,7 @@ type ReturnArgs struct {
 	Want string
 }
 
-// Return can be used if an operation returns an actual value, but another return value is expected.
+// Return can be used if an operation returns an actual value, but another return value was expected.
 func Return(a *ReturnArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -150,13 +150,13 @@ func Return(a *ReturnArgs) error {
 type HigherArgs struct {
 	// Var is the name of the variable
 	Var string
-	// Actual is the actual of Var
+	// Actual is the actual value of Var
 	Actual int64
-	// LowerBound is the lower bound. Actual is expected to be equal or higher than Lowerbound
+	// LowerBound is the lower bound. Actual is expected to be equal to or higher than LowerBound
 	LowerBound int64
 }
 
-// Higher can be used if an integer fails to at least be equal or be higher than a defined lower bound.
+// Higher can be used if an integer fails to be at least equal to or higher than a defined lower bound.
 func Higher(a *HigherArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -184,13 +184,13 @@ func EqualInt(a *EqualIntArgs) error {
 
 // EqualArgs holds the required arguments for the error function Equal
 type EqualArgs struct {
-	// Name of the variable equal to Y
+	// Name of the first variable
 	X string
-	// Name of the variable equal to X
+	// Name of the second variable
 	Y string
 }
 
-// Equal can be used if two variables are not equal but expected to be equal.
+// Equal can be used if two variables are not equal when they are expected to be equal.
 func Equal(a *EqualArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -204,11 +204,11 @@ type LowerArgs struct {
 	Var string
 	// Actual is the actual value of Var
 	Actual int64
-	// HigherBound is the higher bound. Actual is expected to be equal or lower than HigherBound
+	// HigherBound is the upper bound. Actual is expected to be lower than HigherBound
 	HigherBound int64
 }
 
-// Lower can be used if an integer fails to be lower than a defined higher bound.
+// Lower can be used if an integer fails to be lower than a defined upper bound.
 func Lower(a *LowerArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -216,17 +216,17 @@ func Lower(a *LowerArgs) error {
 	return errorf(&errmsgLower, a.Var, a.Actual, a.HigherBound)
 }
 
-// NotSet can be used if a required object is not set, for example, an environment variable.
-// F is the name of the object, for example, the name of the environment variable
+// NotSet can be used if a required object or configuration is not set, for example, an environment variable.
+// F is the name of the unset object, for example, an environment variable name
 func NotSet(F string) error {
 	return errorf(&errmsgNotSet, F)
 }
 
 // NotAvailableArgs holds the required arguments for the error function NotAvailable
 type NotAvailableArgs struct {
-	// S is the name of the service not available
+	// S is the name of the unavailable service
 	S string
-	// Err is the error provided by the service
+	// Err is the underlying error returned by the service
 	Err error
 }
 
@@ -248,7 +248,7 @@ type EqualfArgs struct {
 	Want float64
 }
 
-// Equalf can be used if a float value is not equal to an expected value
+// Equalf can be used if a float value is not equal to an expected value.
 func Equalf(a *EqualfArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -256,21 +256,21 @@ func Equalf(a *EqualfArgs) error {
 	return errorf(&errmsgEqualf, a.Var, a.Actual, a.Want)
 }
 
-// NonPrintable can be used if a string is allowed to only contain printable runes, but actually contains non-printable runes.
-// F is the name of the string allowed to only contain printable runes
+// NonPrintable can be used if a string contains non-printable runes when only printable runes are permitted.
+// F is the name of the string that should only contain printable runes
 func NonPrintable(F string) error {
 	return errorf(&errmsgNonPrintable, F)
 }
 
 // NotEqualArgs holds the required arguments for the error function NotEqual
 type NotEqualArgs struct {
-	// Name of the variable equal to Y
+	// Name of the first variable
 	X string
-	// Name of the variable equal to X
+	// Name of the second variable
 	Y string
 }
 
-// NotEqual can be used if two variables are equal but not expected to be equal.
+// NotEqual can be used if two variables are equal when they are not permitted to be equal.
 func NotEqual(a *NotEqualArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -278,27 +278,27 @@ func NotEqual(a *NotEqualArgs) error {
 	return errorf(&errmsgNotEqual, a.X, a.Y)
 }
 
-// Duplicate can be used if an object already exists, but is only allowed to exist once, for example, a key.
-// F is the name of the object which already exists, for example, the name of a key
+// Duplicate can be used if an object already exists but must be unique, for example, a key or identifier.
+// F is the name of the duplicate object, for example, a key name
 func Duplicate(F string) error {
 	return errorf(&errmsgDuplicate, F)
 }
 
-// Locked can be used if a service is locked, for example, because it is still running
-// S is the name of the service which is locked
+// Locked can be used if a resource or service is locked, for example, because an operation is still in progress.
+// S is the name of the locked service or resource
 func Locked(S string) error {
 	return errorf(&errmsgLocked, S)
 }
 
 // MethodNotAllowedArgs holds the required arguments for the error function MethodNotAllowed
 type MethodNotAllowedArgs struct {
-	// Method is the name of the method that is not allowed
+	// Method is the name of the disallowed method
 	Method string
-	// Resource is the name of the resource for which the method is not allowed
+	// Resource is the name of the target resource
 	Resource string
 }
 
-// MethodNotAllowed can be used if a method is not allowed for a given resource
+// MethodNotAllowed can be used if an operation or HTTP method is not allowed on a given resource.
 func MethodNotAllowed(a *MethodNotAllowedArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -306,19 +306,19 @@ func MethodNotAllowed(a *MethodNotAllowedArgs) error {
 	return errorf(&errmsgMethodNotAllowed, a.Method, a.Resource)
 }
 
-// InvalidJson can be used if a JSON payload is invalid and cannot be parsed
+// InvalidJson can be used if a JSON payload is invalid and cannot be parsed.
 // Err is the error that occurred while parsing the JSON
 func InvalidJson(Err error) error {
 	return errorf(&errmsgInvalidJson, Err)
 }
 
-// InvalidFormat can be used if a string is invalid and cannot be parsed according to a given format
-// S is the string that is in invalid format
+// InvalidFormat can be used if a string is invalid and cannot be parsed according to the expected format.
+// S is the string that has an invalid format
 func InvalidFormat(S string) error {
 	return errorf(&errmsgInvalidFormat, S)
 }
 
-// InvalidTimestampFormat can be used if a timestamp is invalid and cannot be parsed
+// InvalidTimestampFormat can be used if a timestamp string cannot be parsed.
 // Err is the error that occurred while parsing the timestamp
 func InvalidTimestampFormat(Err error) error {
 	return errorf(&errmsgInvalidTimestampFormat, Err)
@@ -328,11 +328,11 @@ func InvalidTimestampFormat(Err error) error {
 type StatusNotMatchingArgs struct {
 	// Expected is the expected status
 	Expected int
-	// Actual is the actual status not matching the expected status
+	// Actual is the actual status received
 	Actual int
 }
 
-// StatusNotMatching can be used if a status is not matching the expected status
+// StatusNotMatching can be used if an actual status does not match the expected status.
 func StatusNotMatching(a *StatusNotMatchingArgs) error {
 	if a == nil {
 		return NilPtr()
@@ -340,30 +340,36 @@ func StatusNotMatching(a *StatusNotMatchingArgs) error {
 	return errorf(&errmsgStatusNotMatching, a.Expected, a.Actual)
 }
 
-// NotFound can be used if a required object cannot be found, for example, a file or a database entry.
-// F is the name of the object not found, for example, a filename or a database entry
+// NotFound can be used if a required object cannot be found, for example, a file or a database record.
+// F is the name of the missing object, for example, a filename or key
 func NotFound(F string) error {
 	return errorf(&errmsgNotFound, F)
 }
 
-// UnexpectedField can be used if a field is not expected, for example, an unknown field name in a parsed input.
-// F is the name of the unexpected field, for example, a field name in an ICS file
+// UnexpectedField can be used if an unexpected field is encountered in parsed input.
+// F is the name of the unexpected field
 func UnexpectedField(F string) error {
 	return errorf(&errmsgUnexpectedField, F)
 }
 
 // UnexpectedErrorArgs holds the required arguments for the error function UnexpectedError
 type UnexpectedErrorArgs struct {
-	// Expected is the expected error message
+	// Expected is the expected error
 	Expected error
-	// Actual is the received error message
+	// Actual is the received error
 	Actual error
 }
 
-// UnexpectedError can be used if a received error is not the expected error, for example, in a unit test.
+// UnexpectedError can be used if a received error does not match the expected error (e.g., in unit tests).
 func UnexpectedError(a *UnexpectedErrorArgs) error {
 	if a == nil {
 		return NilPtr()
 	}
 	return errorf(&errmsgUnexpectedError, a.Expected, a.Actual)
+}
+
+// NoChanges can be used if no changes are found (for example, no staged Git changes).
+// F is the name of the object without changes
+func NoChanges(F string) error {
+	return errorf(&errmsgNoChanges, F)
 }
