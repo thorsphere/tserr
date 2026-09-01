@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.1",
+        "version": "1.21.2",
         "errors": [
             {
                 "name": "Check",
