@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.2",
+        "version": "1.21.3",
         "errors": [
             {
                 "name": "Check",
@@ -514,6 +514,19 @@
                         "name": "F",
                         "type": "string",
                         "comment": "F is the name of the object without changes"
+                    }
+                ]
+            },
+            {
+                "name": "Aborted",
+                "comment": "Aborted can be used if an operation was aborted by the user (e.g., rejecting a confirmation prompt).",
+                "code": "http.StatusPreconditionFailed",
+                "message": "%v aborted by user",
+                "param": [
+                    {
+                        "name": "Op",
+                        "type": "string",
+                        "comment": "Op is the name of the operation that was aborted"
                     }
                 ]
             }

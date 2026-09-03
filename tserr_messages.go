@@ -39,4 +39,5 @@ var (
 	errmsgUnexpectedField        = errmsg{30, http.StatusBadRequest, "unexpected field %v"}
 	errmsgUnexpectedError        = errmsg{31, http.StatusInternalServerError, "expected %v error, but received %v"}
 	errmsgNoChanges              = errmsg{32, http.StatusNotFound, "no changes found: %v"}
+	errmsgAborted                = errmsg{33, http.StatusPreconditionFailed, "%v aborted by user"}
 )

@@ -373,3 +373,9 @@ func UnexpectedError(a *UnexpectedErrorArgs) error {
 func NoChanges(F string) error {
 	return errorf(&errmsgNoChanges, F)
 }
+
+// Aborted can be used if an operation was aborted by the user (e.g., rejecting a confirmation prompt).
+// Op is the name of the operation that was aborted
+func Aborted(Op string) error {
+	return errorf(&errmsgAborted, Op)
+}
