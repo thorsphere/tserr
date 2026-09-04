@@ -40,4 +40,5 @@ var (
 	errmsgUnexpectedError        = errmsg{31, http.StatusInternalServerError, "expected %v error, but received %v"}
 	errmsgNoChanges              = errmsg{32, http.StatusNotFound, "no changes found: %v"}
 	errmsgAborted                = errmsg{33, http.StatusPreconditionFailed, "%v aborted by user"}
+	errmsgNilParam               = errmsg{34, http.StatusBadRequest, "%v cannot be nil"}
 )

@@ -379,3 +379,9 @@ func NoChanges(F string) error {
 func Aborted(Op string) error {
 	return errorf(&errmsgAborted, Op)
 }
+
+// NilParam can be used if a pointer parameter is nil but required to be non-nil.
+// Param is the name of the pointer parameter
+func NilParam(Param string) error {
+	return errorf(&errmsgNilParam, Param)
+}

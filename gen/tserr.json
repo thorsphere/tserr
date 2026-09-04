@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.3",
+        "version": "1.21.4",
         "errors": [
             {
                 "name": "Check",
@@ -527,6 +527,19 @@
                         "name": "Op",
                         "type": "string",
                         "comment": "Op is the name of the operation that was aborted"
+                    }
+                ]
+            },
+            {
+                "name": "NilParam",
+                "comment": "NilParam can be used if a pointer parameter is nil but required to be non-nil.",
+                "code": "http.StatusBadRequest",
+                "message": "%v cannot be nil",
+                "param": [
+                    {
+                        "name": "Param",
+                        "type": "string",
+                        "comment": "Param is the name of the pointer parameter"
                     }
                 ]
             }
