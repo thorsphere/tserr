@@ -312,10 +312,20 @@ func InvalidJson(Err error) error {
 	return errorf(&errmsgInvalidJson, Err)
 }
 
+// InvalidFormatArgs holds the required arguments for the error function InvalidFormat
+type InvalidFormatArgs struct {
+	// F is the name of the object with the invalid format, for example, 'editor command' or 'choice'
+	F string
+	// Detail describes the format problem, for example, 'unterminated double quote'
+	Detail string
+}
+
 // InvalidFormat can be used if a string is invalid and cannot be parsed according to the expected format.
-// S is the string that has an invalid format
-func InvalidFormat(S string) error {
-	return errorf(&errmsgInvalidFormat, S)
+func InvalidFormat(a *InvalidFormatArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgInvalidFormat, a.F, a.Detail)
 }
 
 // InvalidTimestampFormat can be used if a timestamp string cannot be parsed.
@@ -384,4 +394,20 @@ func Aborted(Op string) error {
 // Param is the name of the pointer parameter
 func NilParam(Param string) error {
 	return errorf(&errmsgNilParam, Param)
+}
+
+// DuplicateKeyArgs holds the required arguments for the error function DuplicateKey
+type DuplicateKeyArgs struct {
+	// Key is the duplicate key
+	Key string
+	// Existing is the key that was already registered
+	Existing string
+}
+
+// DuplicateKey can be used if a key is a duplicate of an already registered key, for example, a choice key.
+func DuplicateKey(a *DuplicateKeyArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgDuplicateKey, a.Key, a.Existing)
 }

@@ -542,10 +542,19 @@ func TestInvalidJson(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
+func TestInvalidFormatNil(t *testing.T) {
+	if err := InvalidFormat(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
 func TestInvalidFormat(t *testing.T) {
-	a := strFoo
+	a := InvalidFormatArgs{
+		F:      strFoo,
+		Detail: strFoo,
+	}
 	em := &errmsgInvalidFormat
-	err := InvalidFormat(a)
+	err := InvalidFormat(&a)
 	if err == nil {
 		t.Fatal(errNil)
 	}
@@ -553,7 +562,7 @@ func TestInvalidFormat(t *testing.T) {
 	emsg := errmsg{
 		em.Id,
 		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.F, a.Detail)),
 	}
 	testEqualJson(t, err, &emsg)
 }
@@ -700,6 +709,31 @@ func TestNilParam(t *testing.T) {
 		em.Id,
 		em.C,
 		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
+func TestDuplicateKeyNil(t *testing.T) {
+	if err := DuplicateKey(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestDuplicateKey(t *testing.T) {
+	a := DuplicateKeyArgs{
+		Key:      strFoo,
+		Existing: strFoo,
+	}
+	em := &errmsgDuplicateKey
+	err := DuplicateKey(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Key, a.Existing)),
 	}
 	testEqualJson(t, err, &emsg)
 }

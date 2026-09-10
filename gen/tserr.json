@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.4",
+        "version": "1.21.5",
         "errors": [
             {
                 "name": "Check",
@@ -420,12 +420,17 @@
                 "name": "InvalidFormat",
                 "comment": "InvalidFormat can be used if a string is invalid and cannot be parsed according to the expected format.",
                 "code": "http.StatusBadRequest",
-                "message": "invalid format: %v",
+                "message": "invalid format of %v: %v",
                 "param": [
                     {
-                        "name": "S",
+                        "name": "F",
                         "type": "string",
-                        "comment": "S is the string that has an invalid format"
+                        "comment": "F is the name of the object with the invalid format, for example, 'editor command' or 'choice'"
+                    },
+                    {
+                        "name": "Detail",
+                        "type": "string",
+                        "comment": "Detail describes the format problem, for example, 'unterminated double quote'"
                     }
                 ]
             },
@@ -540,6 +545,24 @@
                         "name": "Param",
                         "type": "string",
                         "comment": "Param is the name of the pointer parameter"
+                    }
+                ]
+            },
+            {
+                "name": "DuplicateKey",
+                "comment": "DuplicateKey can be used if a key is a duplicate of an already registered key, for example, a choice key.",
+                "code": "http.StatusBadRequest",
+                "message": "duplicate key %q (already registered by %q)",
+                "param": [
+                    {
+                        "name": "Key",
+                        "type": "string",
+                        "comment": "Key is the duplicate key"
+                    },
+                    {
+                        "name": "Existing",
+                        "type": "string",
+                        "comment": "Existing is the key that was already registered"
                     }
                 ]
             }
