@@ -551,6 +551,7 @@ func TestInvalidFormatNil(t *testing.T) {
 func TestInvalidFormat(t *testing.T) {
 	a := InvalidFormatArgs{
 		F:      strFoo,
+		Value:  strFoo,
 		Detail: strFoo,
 	}
 	em := &errmsgInvalidFormat
@@ -562,7 +563,7 @@ func TestInvalidFormat(t *testing.T) {
 	emsg := errmsg{
 		em.Id,
 		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a.F, a.Detail)),
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.F, a.Value, a.Detail)),
 	}
 	testEqualJson(t, err, &emsg)
 }

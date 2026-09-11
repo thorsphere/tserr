@@ -316,6 +316,8 @@ func InvalidJson(Err error) error {
 type InvalidFormatArgs struct {
 	// F is the name of the object with the invalid format, for example, 'editor command' or 'choice'
 	F string
+	// Value is the offending value, for example, 'vim -c "'. Optional; zero value prints as empty quoted string
+	Value string
 	// Detail describes the format problem, for example, 'unterminated double quote'
 	Detail string
 }
@@ -325,7 +327,7 @@ func InvalidFormat(a *InvalidFormatArgs) error {
 	if a == nil {
 		return NilPtr()
 	}
-	return errorf(&errmsgInvalidFormat, a.F, a.Detail)
+	return errorf(&errmsgInvalidFormat, a.F, a.Value, a.Detail)
 }
 
 // InvalidTimestampFormat can be used if a timestamp string cannot be parsed.
