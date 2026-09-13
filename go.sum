@@ -1,4 +1,6 @@
 github.com/thorsphere/lpcode v1.2.0 h1:c4UD9YX7Ky7XWxtAWkVCkIB1Ge9ncFUubkcNoQw6pX8=
 github.com/thorsphere/lpcode v1.2.0/go.mod h1:poQxDgo0X3pkx8GcBUSU9p/H1sCIWrvE4r1dnrx8I40=
+github.com/thorsphere/lpstats v1.6.2 h1:aEw5Gt5HhJ1c500BWVPsgbp7qka5rxhNfpu6Nr6od6w=
+github.com/thorsphere/lpstats v1.6.2/go.mod h1:UCMwlYmLjwHCB983MJ3Csh+oLlB6Go3GM50DZ8lJuE0=
 github.com/thorsphere/tsfio v1.9.0 h1:3XkQVhfQBBYQq3kbpbY5I6GR0HxSAa/1NCEcSV9p854=
 github.com/thorsphere/tsfio v1.9.0/go.mod h1:BC+z8MPZI/pUaeIJJi+kE4AfKWHKCWub2nYVQCTTDbg=
