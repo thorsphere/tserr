@@ -47,13 +47,13 @@ The JSON configuration file defines error definitions with their names, comments
 ```json
 {
   "tserr": {
-    "path": "../tserr",
+    "path": "..",
     "version": "1.0.0",
     "errors": [
       {
         "name": "NotFound",
         "comment": "NotFound is returned when a resource is not found.",
-        "code": "404",
+        "code": "http.StatusNotFound",
         "message": "resource %v not found",
         "param": [
           {
@@ -67,6 +67,22 @@ The JSON configuration file defines error definitions with their names, comments
   }
 }
 ```
+
+**Note:** `code` must be a Go expression referencing an `http` status
+constant (e.g. `http.StatusNotFound`), as it is copied verbatim into the
+generated code.
+
+### Validation
+
+Before generating code, `Generate` validates the configuration:
+
+- Every `message` template must be a well-formed fmt format string
+  (malformed verbs such as a trailing `%` are rejected).
+- The number of arguments required by the verbs in `message` must equal
+  the number of entries in `param`.
+
+If validation fails, `Generate` returns an error identifying the offending
+error definition and no files are written.
 
 ### Generated code
 
@@ -102,17 +118,25 @@ import (
 )
 
 func main() {
-    if e := gen.Generate("tserr.json"); e != nil {
-        panic(e)
+    if err := gen.Generate("tserr.json"); err != nil {
+        log.Fatal(err)
     }
 }
 ```
 
 ## Limitations
 
-The generator does not validate or check for non-printable characters in the `tserr.json` configuration file. When defining error names, comments, or message templates, ensure that your JSON configuration contains only printable characters. Non-printable characters (control characters, invalid UTF-8 sequences, etc.) may result in corrupted or invalid generated error messages.
+- **Non-printable characters**: The generator does not validate the
+  `tserr.json` configuration file for non-printable characters. Use only
+  standard ASCII printable characters and valid UTF-8 sequences; control
+  characters or invalid UTF-8 may corrupt the generated error messages.
 
-**Recommendation**: Use only standard ASCII printable characters and valid UTF-8 sequences in your configuration file.
+- **Verb kinds**: Validation checks the *number* of format verbs, not
+  their *kinds*. A verb like `%d` combined with a `string` parameter, or
+  `%w` with a non-`error` parameter, passes validation but renders as
+  `%!d(string=...)` at runtime. Choose verbs that match the declared
+  parameter types (`%d`/`%f` for integers/floats, `%w` for `error`,
+  `%v`/`%q`/`%s` for any type).
 
 ## Links
 
