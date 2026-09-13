@@ -82,7 +82,10 @@ Every error is formatted as a JSON string with consistent structure:
 }
 ```
 
-- **`id`**: A unique, incrementally-numbered error identifier.
+- **`id`**: A unique error identifier. Its value depends on the position of
+the error definition in the generator configuration (`tserr.json`),
+so it may change when errors are added or removed, do not match on
+specific ids across versions.
 - **`code`**: An HTTP status code corresponding to the error category.
 - **`message`**: The error message (can contain formatted values from arguments).
 
@@ -106,7 +109,7 @@ func main() {
 		Var:    "port",
 		Actual: "8000",
 		Want:   "3000",
-}
+	}))
 ```
 
 [Run in Go Playground](https://go.dev/play/p/s9IF9NUVA-y)
