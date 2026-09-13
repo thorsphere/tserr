@@ -25,9 +25,10 @@ import (
 	"encoding/json" // json
 	"fmt"           // fmt
 
-	"github.com/thorsphere/lpcode" // lpcode
-	"github.com/thorsphere/tserr"  // tserr
-	"github.com/thorsphere/tsfio"  // tsfio
+	"github.com/thorsphere/lpcode"  // lpcode
+	"github.com/thorsphere/lpstats" // lpstats
+	"github.com/thorsphere/tserr"   // tserr
+	"github.com/thorsphere/tsfio"   // tsfio
 )
 
 // Define variables for filenames and test variables used in the code generation process.
@@ -59,27 +60,33 @@ func Generate(fn tsfio.Filename) error {
 
 	// Unmarshal the JSON data into a tserrconfig struct.
 	var m tserrconfig
-	if e := json.Unmarshal(b, &m); e != nil {
+	if err := json.Unmarshal(b, &m); err != nil {
 		// If there is an error,return an error with details about the operation that failed.
 		return tserr.Op(&tserr.OpArgs{Op: "Unmarshal", Fn: string(fn), Err: err})
 	}
 
+	// Validate that the message templates of all error definitions are
+	// well-formed and match their parameter lists.
+	if err := validate(&m); err != nil {
+		return err
+	}
+
 	// Generate the Go code for error messagesbased on the unmarshaled configuration.
-	if e := genMessages(&m); e != nil {
+	if err := genMessages(&m); err != nil {
 		// If there is an error, return an error with details about the operation that failed.
-		return e
+		return err
 	}
 
 	// Generate the Go code for API functions based on the unmarshaled configuration.
-	if e := genApi(&m, tserr_api_go, genApiFunc, nil); e != nil {
+	if err := genApi(&m, tserr_api_go, genApiFunc, nil); err != nil {
 		// If there is an error, return an error with details about the operation that failed.
-		return e
+		return err
 	}
 
 	// Generate the Go code for API test functions based on the unmarshaled configuration.
-	if e := genApi(&m, tserr_api_test_go, genApiTestFunc, tserr_testvars); e != nil {
+	if err := genApi(&m, tserr_api_test_go, genApiTestFunc, tserr_testvars); err != nil {
 		// If there is an error, return an error with details about the operation that failed.
-		return e
+		return err
 	}
 
 	// If everything is successful, return nil to indicate that the generation process completed without errors.
@@ -429,4 +436,38 @@ func genApiFuncM(m *errmsg) (*lpcode.Code, error) {
 	// Return the generated code snippet and nil to indicate that
 	// the generation process completed without errors.
 	return c, nil
+}
+
+// validate checks each error definition for consistency between the
+// format verbs in the message template and the declared parameters.
+// It returns an error if a message template is malformed or if the
+// number of arguments required by its verbs does not match the number
+// of declared parameters.
+func validate(m *tserrconfig) error {
+	// Return an error if the input tserrconfig pointer is nil
+	if m == nil {
+		return tserr.NilPtr()
+	}
+	// Check every error definition in the configuration.
+	for _, v := range m.Root.Errors {
+		// Return an error if the parameters in the error message definition are nil
+		if v.Param == nil {
+			return tserr.NilPtr()
+		}
+		// Count the arguments required by the verbs in the message template.
+		n, e := lpstats.CountArgs(v.Msg)
+		if e != nil {
+			return tserr.Op(&tserr.OpArgs{Op: "CountArgs", Fn: v.Name, Err: e})
+		}
+		// Compare the required number of arguments with the number of declared parameters.
+		if got, want := n, len(v.Param); got != want {
+			return tserr.EqualInt(&tserr.EqualIntArgs{
+				Var:    "number of format verbs in message of error " + v.Name,
+				Actual: int64(got),
+				Want:   int64(want),
+			})
+		}
+	}
+	// Return nil to indicate that all error definitions are valid.
+	return nil
 }
