@@ -13,7 +13,7 @@ var (
 	errmsgAlreadyExistent        = errmsg{3, http.StatusConflict, "%v already exists"}
 	errmsgOp                     = errmsg{4, http.StatusUnprocessableEntity, "%v %v failed: %w"}
 	errmsgNilFailed              = errmsg{5, http.StatusInternalServerError, "%v returned nil, but error expected"}
-	errmsgNilExpected            = errmsg{6, http.StatusInternalServerError, "%v did not return nil, but nil expected"}
+	errmsgNilExpected            = errmsg{6, http.StatusInternalServerError, "%v returned %w, but nil expected"}
 	errmsgEmpty                  = errmsg{7, http.StatusBadRequest, "%v cannot be empty"}
 	errmsgEqualStr               = errmsg{8, http.StatusInternalServerError, "value of %v is %v, but expected to be equal to %v"}
 	errmsgTypeNotMatching        = errmsg{9, http.StatusMethodNotAllowed, "%v does not match type %v"}
@@ -37,7 +37,7 @@ var (
 	errmsgStatusNotMatching      = errmsg{28, http.StatusInternalServerError, "status does not match: expected %d, actual %d"}
 	errmsgNotFound               = errmsg{29, http.StatusNotFound, "%v not found"}
 	errmsgUnexpectedField        = errmsg{30, http.StatusBadRequest, "unexpected field %v"}
-	errmsgUnexpectedError        = errmsg{31, http.StatusInternalServerError, "expected %v error, but received %v"}
+	errmsgUnexpectedError        = errmsg{31, http.StatusInternalServerError, "expected %w error, but received %w"}
 	errmsgNoChanges              = errmsg{32, http.StatusNotFound, "no changes found: %v"}
 	errmsgAborted                = errmsg{33, http.StatusPreconditionFailed, "%v aborted by user"}
 	errmsgNilParam               = errmsg{34, http.StatusBadRequest, "%v cannot be nil"}

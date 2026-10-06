@@ -76,10 +76,20 @@ func NilFailed(Op string) error {
 	return errorf(&errmsgNilFailed, Op)
 }
 
+// NilExpectedArgs holds the required arguments for the error function NilExpected
+type NilExpectedArgs struct {
+	// Op is the name of the operation, for example, 'ExistsFile'
+	Op string
+	// Err is the error returned instead of nil, for example, 'permission denied'
+	Err error
+}
+
 // NilExpected can be used if a function implementing an operation returns an error when nil was expected (e.g., in unit tests).
-// Op is the name of the operation, for example, 'ExistsFile'
-func NilExpected(Op string) error {
-	return errorf(&errmsgNilExpected, Op)
+func NilExpected(a *NilExpectedArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgNilExpected, a.Op, a.Err)
 }
 
 // Empty can be used if a required object is empty but not allowed to be empty, for example, an input argument of type string.

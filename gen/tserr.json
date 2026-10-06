@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.7",
+        "version": "1.21.8",
         "errors": [
             {
                 "name": "Check",
@@ -88,12 +88,17 @@
                 "name": "NilExpected",
                 "comment": "NilExpected can be used if a function implementing an operation returns an error when nil was expected (e.g., in unit tests).",
                 "code": "http.StatusInternalServerError",
-                "message": "%v did not return nil, but nil expected",
+                "message": "%v returned %w, but nil expected",
                 "param": [
                     {
                         "name": "Op",
                         "type": "string",
                         "comment": "Op is the name of the operation, for example, 'ExistsFile'"
+                    },
+                    {
+                        "name": "Err",
+                        "type": "error",
+                        "comment": "Err is the error returned instead of nil, for example, 'permission denied'"
                     }
                 ]
             },
@@ -500,7 +505,7 @@
                 "name": "UnexpectedError",
                 "comment": "UnexpectedError can be used if a received error does not match the expected error (e.g., in unit tests).",
                 "code": "http.StatusInternalServerError",
-                "message": "expected %v error, but received %v",
+                "message": "expected %w error, but received %w",
                 "param": [
                     {
                         "name": "Expected",

@@ -133,10 +133,19 @@ func TestNilFailed(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
+func TestNilExpectedNil(t *testing.T) {
+	if err := NilExpected(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
 func TestNilExpected(t *testing.T) {
-	a := strFoo
+	a := NilExpectedArgs{
+		Op:  strFoo,
+		Err: errFoo,
+	}
 	em := &errmsgNilExpected
-	err := NilExpected(a)
+	err := NilExpected(&a)
 	if err == nil {
 		t.Fatal(errNil)
 	}
@@ -144,7 +153,7 @@ func TestNilExpected(t *testing.T) {
 	emsg := errmsg{
 		em.Id,
 		em.C,
-		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Op, a.Err)),
 	}
 	testEqualJson(t, err, &emsg)
 }
