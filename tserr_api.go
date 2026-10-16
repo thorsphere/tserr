@@ -174,6 +174,24 @@ func Higher(a *HigherArgs) error {
 	return errorf(&errmsgHigher, a.Var, a.Actual, a.LowerBound)
 }
 
+// HigherfArgs holds the required arguments for the error function Higherf
+type HigherfArgs struct {
+	// Var is the name of the variable
+	Var string
+	// Actual is the actual value of Var
+	Actual float64
+	// LowerBound is the lower bound. Actual is expected to be equal to or higher than LowerBound
+	LowerBound float64
+}
+
+// Higherf can be used if a float fails to be at least equal to or higher than a defined lower bound.
+func Higherf(a *HigherfArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgHigherf, a.Var, a.Actual, a.LowerBound)
+}
+
 // EqualIntArgs holds the required arguments for the error function EqualInt
 type EqualIntArgs struct {
 	// Var is the name of the variable
@@ -224,6 +242,24 @@ func Lower(a *LowerArgs) error {
 		return NilPtr()
 	}
 	return errorf(&errmsgLower, a.Var, a.Actual, a.HigherBound)
+}
+
+// LowerfArgs holds the required arguments for the error function Lowerf
+type LowerfArgs struct {
+	// Var is the name of the variable
+	Var string
+	// Actual is the actual value of Var
+	Actual float64
+	// HigherBound is the upper bound. Actual is expected to be lower than HigherBound
+	HigherBound float64
+}
+
+// Lowerf can be used if a float fails to be lower than a defined upper bound.
+func Lowerf(a *LowerfArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgLowerf, a.Var, a.Actual, a.HigherBound)
 }
 
 // NotSet can be used if a required object or configuration is not set, for example, an environment variable.

@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.8",
+        "version": "1.21.9",
         "errors": [
             {
                 "name": "Check",
@@ -216,6 +216,29 @@
                 ]
             },
             {
+                "name": "Higherf",
+                "comment": "Higherf can be used if a float fails to be at least equal to or higher than a defined lower bound.",
+                "code": "http.StatusInternalServerError",
+                "message": "value of %v is %g, but expected to be at least equal to or higher than %g",
+                "param": [
+                    {
+                        "name": "Var",
+                        "type": "string",
+                        "comment": "Var is the name of the variable"
+                    },
+                    {
+                        "name": "Actual",
+                        "type": "float64",
+                        "comment": "Actual is the actual value of Var"
+                    },
+                    {
+                        "name": "LowerBound",
+                        "type": "float64",
+                        "comment": "LowerBound is the lower bound. Actual is expected to be equal to or higher than LowerBound"
+                    }
+                ]
+            },
+            {
                 "name": "EqualInt",
                 "comment": "EqualInt can be used if an integer fails to be equal to an expected value.",
                 "code": "http.StatusInternalServerError",
@@ -275,6 +298,29 @@
                     {
                         "name": "HigherBound",
                         "type": "int64",
+                        "comment": "HigherBound is the upper bound. Actual is expected to be lower than HigherBound"
+                    }
+                ]
+            },
+            {
+                "name": "Lowerf",
+                "comment": "Lowerf can be used if a float fails to be lower than a defined upper bound.",
+                "code": "http.StatusInternalServerError",
+                "message": "value of %v is %g, but expected to be lower than %g",
+                "param": [
+                    {
+                        "name": "Var",
+                        "type": "string",
+                        "comment": "Var is the name of the variable"
+                    },
+                    {
+                        "name": "Actual",
+                        "type": "float64",
+                        "comment": "Actual is the actual value of Var"
+                    },
+                    {
+                        "name": "HigherBound",
+                        "type": "float64",
                         "comment": "HigherBound is the upper bound. Actual is expected to be lower than HigherBound"
                     }
                 ]

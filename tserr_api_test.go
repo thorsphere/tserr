@@ -293,6 +293,32 @@ func TestHigher(t *testing.T) {
 	testEqualJson(t, err, &emsg)
 }
 
+func TestHigherfNil(t *testing.T) {
+	if err := Higherf(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestHigherf(t *testing.T) {
+	a := HigherfArgs{
+		Var:        strFoo,
+		Actual:     floatFoo,
+		LowerBound: floatFoo,
+	}
+	em := &errmsgHigherf
+	err := Higherf(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Var, a.Actual, a.LowerBound)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
 func TestEqualIntNil(t *testing.T) {
 	if err := EqualInt(nil); err == nil {
 		t.Errorf("%s", errNil)
@@ -358,6 +384,32 @@ func TestLower(t *testing.T) {
 	}
 	em := &errmsgLower
 	err := Lower(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.Var, a.Actual, a.HigherBound)),
+	}
+	testEqualJson(t, err, &emsg)
+}
+
+func TestLowerfNil(t *testing.T) {
+	if err := Lowerf(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestLowerf(t *testing.T) {
+	a := LowerfArgs{
+		Var:         strFoo,
+		Actual:      floatFoo,
+		HigherBound: floatFoo,
+	}
+	em := &errmsgLowerf
+	err := Lowerf(&a)
 	if err == nil {
 		t.Fatal(errNil)
 	}
