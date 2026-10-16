@@ -1,3 +1,7 @@
+// Copyright (c) 2023-2026 thorsphere.
+// All Rights Reserved. Use is governed by the Functional Source License v1.1
+// (FSL-1.1-ALv2) that can be found in the LICENSE file.
+
 // Package tserr exports error functions following three calling patterns:
 //
 //  1. No arguments: Simple errors requiring no parameters,
@@ -18,10 +22,6 @@
 //	return errorf(&errmsgEqualStr, a.Var, a.Actual, a.Want)
 //
 // All exported error functions except NilPtr are defined here. NilPtr is in tserr_nil.go.
-//
-// Copyright (c) 2023-2026 thorsphere.
-// All Rights Reserved. Use is governed by the Functional Source License v1.1
-// (FSL-1.1-ALv2) that can be found in the LICENSE file.
 package tserr
 
 // CheckArgs holds the required arguments for the error function Check

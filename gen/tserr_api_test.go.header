@@ -1,3 +1,7 @@
+// Copyright (c) 2023-2026 thorsphere.
+// All Rights Reserved. Use is governed by the Functional Source License v1.1
+// (FSL-1.1-ALv2) that can be found in the LICENSE file.
+
 package tserr
 
 // All tests for all exported error functions are implemented here, with the exception of NilPtr(). The
@@ -14,10 +18,6 @@ package tserr
 //
 // The structure of all test functions follows the same pattern. For an example, please see
 // tests for Check: TestCheck, TestCheckNil, TestCheckNilErr
-//
-// Copyright (c) 2023-2026 thorsphere.
-// All Rights Reserved. Use is governed by the Functional Source License v1.1
-// (FSL-1.1-ALv2) that can be found in the LICENSE file.
 
 // Import standard library packages
 import (

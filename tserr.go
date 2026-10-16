@@ -1,3 +1,7 @@
+// Copyright (c) 2023-2026 thorsphere.
+// All Rights Reserved. Use is governed by the Functional Source License v1.1
+// (FSL-1.1-ALv2) that can be found in the LICENSE file.
+
 // Package tserr provides a small, opinionated toolkit for structured error
 // messages in JSON format, with an HTTP-status-code-aligned code.
 //
@@ -19,10 +23,6 @@
 //
 // If a multi-arg struct pointer is nil, `tserr.NilPtr()` is returned.
 // Otherwise the template is formatted and wrapped as JSON.
-//
-// Copyright (c) 2023-2026 thorsphere.
-// All Rights Reserved. Use is governed by the Functional Source License v1.1
-// (FSL-1.1-ALv2) that can be found in the LICENSE file.
 package tserr
 
 // Import standard library packages
