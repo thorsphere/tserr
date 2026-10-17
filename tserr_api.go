@@ -459,3 +459,9 @@ func DuplicateKey(a *DuplicateKeyArgs) error {
 	}
 	return errorf(&errmsgDuplicateKey, a.Key, a.Existing)
 }
+
+// ContextDone can be used if a function with a context.Context finds via ctx.Err that the context is done (canceled or its deadline was exceeded) and therefore cannot continue.
+// Err is the error returned by ctx.Err, for example, 'context canceled' or 'context deadline exceeded'
+func ContextDone(Err error) error {
+	return errorf(&errmsgContextDone, Err)
+}

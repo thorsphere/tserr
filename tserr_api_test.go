@@ -799,3 +799,19 @@ func TestDuplicateKey(t *testing.T) {
 	}
 	testEqualJson(t, err, &emsg)
 }
+
+func TestContextDone(t *testing.T) {
+	a := errFoo
+	em := &errmsgContextDone
+	err := ContextDone(a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a)),
+	}
+	testEqualJson(t, err, &emsg)
+}

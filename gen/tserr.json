@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.9",
+        "version": "1.21.10",
         "errors": [
             {
                 "name": "Check",
@@ -619,6 +619,19 @@
                         "name": "Existing",
                         "type": "string",
                         "comment": "Existing is the key that was already registered"
+                    }
+                ]
+            },
+            {
+                "name": "ContextDone",
+                "comment": "ContextDone can be used if a function with a context.Context finds via ctx.Err that the context is done (canceled or its deadline was exceeded) and therefore cannot continue.",
+                "code": "http.StatusRequestTimeout",
+                "message": "context done: %w",
+                "param": [
+                    {
+                        "name": "Err",
+                        "type": "error",
+                        "comment": "Err is the error returned by ctx.Err, for example, 'context canceled' or 'context deadline exceeded'"
                     }
                 ]
             }

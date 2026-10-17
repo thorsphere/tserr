@@ -45,4 +45,5 @@ var (
 	errmsgAborted                = errmsg{35, http.StatusPreconditionFailed, "%v aborted by user"}
 	errmsgNilParam               = errmsg{36, http.StatusBadRequest, "%v cannot be nil"}
 	errmsgDuplicateKey           = errmsg{37, http.StatusBadRequest, "duplicate key %q (already registered by %q)"}
+	errmsgContextDone            = errmsg{38, http.StatusRequestTimeout, "context done: %w"}
 )
