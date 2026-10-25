@@ -2,7 +2,7 @@
     "tserr":
     {
         "path": "..",
-        "version": "1.21.10",
+        "version": "1.21.11",
         "errors": [
             {
                 "name": "Check",
@@ -632,6 +632,29 @@
                         "name": "Err",
                         "type": "error",
                         "comment": "Err is the error returned by ctx.Err, for example, 'context canceled' or 'context deadline exceeded'"
+                    }
+                ]
+            },
+            {
+                "name": "TooLarge",
+                "comment": "TooLarge can be used if an object exceeds its maximum allowed size, for example, an HTTP response body.",
+                "code": "http.StatusRequestEntityTooLarge",
+                "message": "%v is %d bytes, but expected to be at most %d bytes",
+                "param": [
+                    {
+                        "name": "F",
+                        "type": "string",
+                        "comment": "F is the name of the oversized object, for example, 'response body'"
+                    },
+                    {
+                        "name": "Actual",
+                        "type": "int64",
+                        "comment": "Actual is the actual size of F in bytes"
+                    },
+                    {
+                        "name": "MaxBytes",
+                        "type": "int64",
+                        "comment": "MaxBytes is the maximum allowed size of F in bytes"
                     }
                 ]
             }

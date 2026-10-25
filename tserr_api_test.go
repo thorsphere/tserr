@@ -815,3 +815,29 @@ func TestContextDone(t *testing.T) {
 	}
 	testEqualJson(t, err, &emsg)
 }
+
+func TestTooLargeNil(t *testing.T) {
+	if err := TooLarge(nil); err == nil {
+		t.Errorf("%s", errNil)
+	}
+}
+
+func TestTooLarge(t *testing.T) {
+	a := TooLargeArgs{
+		F:        strFoo,
+		Actual:   int64Foo,
+		MaxBytes: int64Foo,
+	}
+	em := &errmsgTooLarge
+	err := TooLarge(&a)
+	if err == nil {
+		t.Fatal(errNil)
+	}
+	testValidJson(t, err)
+	emsg := errmsg{
+		em.Id,
+		em.C,
+		fmt.Sprintf("%v", fmt.Errorf(em.M, a.F, a.Actual, a.MaxBytes)),
+	}
+	testEqualJson(t, err, &emsg)
+}

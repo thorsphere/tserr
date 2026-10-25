@@ -465,3 +465,21 @@ func DuplicateKey(a *DuplicateKeyArgs) error {
 func ContextDone(Err error) error {
 	return errorf(&errmsgContextDone, Err)
 }
+
+// TooLargeArgs holds the required arguments for the error function TooLarge
+type TooLargeArgs struct {
+	// F is the name of the oversized object, for example, 'response body'
+	F string
+	// Actual is the actual size of F in bytes
+	Actual int64
+	// MaxBytes is the maximum allowed size of F in bytes
+	MaxBytes int64
+}
+
+// TooLarge can be used if an object exceeds its maximum allowed size, for example, an HTTP response body.
+func TooLarge(a *TooLargeArgs) error {
+	if a == nil {
+		return NilPtr()
+	}
+	return errorf(&errmsgTooLarge, a.F, a.Actual, a.MaxBytes)
+}

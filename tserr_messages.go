@@ -46,4 +46,5 @@ var (
 	errmsgNilParam               = errmsg{36, http.StatusBadRequest, "%v cannot be nil"}
 	errmsgDuplicateKey           = errmsg{37, http.StatusBadRequest, "duplicate key %q (already registered by %q)"}
 	errmsgContextDone            = errmsg{38, http.StatusRequestTimeout, "context done: %w"}
+	errmsgTooLarge               = errmsg{39, http.StatusRequestEntityTooLarge, "%v is %d bytes, but expected to be at most %d bytes"}
 )
